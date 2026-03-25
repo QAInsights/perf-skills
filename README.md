@@ -62,12 +62,18 @@ After install, the `/perf-skills` skill is available and auto-activates on perfo
 /plugin marketplace update
 ```
 
+### Install as Skills (npx)
+
+```bash
+npx skills add QAInsights/perf-skills
+```
+
 ### Install as Skills (Manual)
 
 ```bash
 # Clone and copy to Claude skills directory
 git clone https://github.com/QAInsights/perf-skills.git
-cp -r perf-skills/ ~/.claude/skills/
+cp -r perf-skills/perf-skills/ ~/.claude/skills/
 ```
 
 ### Windsurf (Skills)
