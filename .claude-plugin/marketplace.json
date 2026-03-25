@@ -1,0 +1,50 @@
+{
+  "name": "perf-skills",
+  "owner": {
+    "name": "NaveenKumar Namachivayam",
+    "email": "info@qainsights.com"
+  },
+  "metadata": {
+    "description": "Expert AI skill for performance testing — covers the full lifecycle using JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and OctoPerf.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "perf-skills",
+      "source": "./perf-skills",
+      "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 7 tools and 10 topic areas.",
+      "version": "1.0.0",
+      "author": {
+        "name": "NaveenKumar Namachivayam",
+        "email": "contact@qainsights.com"
+      },
+      "homepage": "https://github.com/QAInsights/perf-skills",
+      "repository": "https://github.com/QAInsights/perf-skills",
+      "license": "MIT",
+      "keywords": [
+        "performance-testing",
+        "load-testing",
+        "jmeter",
+        "k6",
+        "gatling",
+        "locust",
+        "neoload",
+        "loadrunner",
+        "octoperf",
+        "stress-testing",
+        "soak-testing",
+        "grpc",
+        "graphql",
+        "websocket",
+        "observability",
+        "ci-cd"
+      ],
+      "category": "testing",
+      "tags": [
+        "performance",
+        "load-testing",
+        "quality-engineering"
+      ]
+    }
+  ]
+}

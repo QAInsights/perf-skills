@@ -1,6 +1,8 @@
 # perf-skills
 
-An AI skill for expert performance testing guidance — covering the full lifecycle from workload design through production observation.
+> *"The more you sweat in training, the less you bleed in battle."* — Richard Marcinko
+>
+> The more relevant skills your AI loads during development, the fewer fires you fight in production.
 
 ## What Is This?
 
@@ -45,38 +47,32 @@ An AI skill for expert performance testing guidance — covering the full lifecy
 
 ## Installation
 
-### Claude Code Plugin
+### Claude Code Plugin (Recommended)
 
-Install as a Claude Code plugin:
-
-```bash
-/plugin install QAInsights/perf-skills
-```
-
-Or add from GitHub:
-
+**Add the marketplace and install:**
 ```bash
 /plugin marketplace add QAInsights/perf-skills
-/plugin install QAInsights@perf-skills
+/plugin install perf-skills@perf-skills
 ```
 
-After install, the skill is available as a plugin and auto-activates on performance testing questions.
+After install, the `/perf-skills` skill is available and auto-activates on performance testing questions.
 
-### Install as Skills
-
-**All skills:**
+**Update to latest version:**
 ```bash
-npx skills add QAInsights/perf-skills
+/plugin marketplace update
 ```
 
-**Manual:**
+### Install as Skills (Manual)
+
 ```bash
+# Clone and copy to Claude skills directory
+git clone https://github.com/QAInsights/perf-skills.git
 cp -r perf-skills/perf-skills/ ~/.claude/skills/
 ```
 
 ### Windsurf (Skills)
 
-1. Copy the `perf-skills/perf-skills/` directory into your Windsurf skills location.
+1. Copy the `perf-skills/` directory into your Windsurf skills location.
 2. The skill auto-triggers when you ask about performance testing, load testing, or any supported tool.
 
 ### Cursor (Rules / Docs)
@@ -92,7 +88,7 @@ cp -r perf-skills/perf-skills/ ~/.claude/skills/
 
 ### Claude Code (CLAUDE.md)
 
-1. Copy the `perf-skills/perf-skills/` directory into your project.
+1. Copy the `perf-skills/` directory into your project.
 2. In your `CLAUDE.md`, add:
 ```markdown
 For performance testing questions, read `perf-skills/SKILL.md` for routing,
@@ -101,7 +97,7 @@ then load the relevant reference file(s) from `perf-skills/references/`.
 
 ### Cline / Roo Code
 
-1. Copy the `perf-skills/perf-skills/` directory into your project.
+1. Copy the `perf-skills/` directory into your project.
 2. Add to your custom instructions or `.clinerules`:
 ```
 For performance testing guidance, consult the perf-skills knowledge base.
@@ -110,13 +106,13 @@ Start with perf-skills/SKILL.md for routing to the correct reference file.
 
 ### Aider
 
-1. Copy the `perf-skills/perf-skills/` directory into your project.
+1. Copy the `perf-skills/` directory into your project.
 2. Use `/read perf-skills/SKILL.md` to load the routing file.
 3. Then `/read` the specific reference file(s) relevant to your question.
 
 ### GitHub Copilot
 
-1. Copy the `perf-skills/perf-skills/` directory into your project.
+1. Copy the `perf-skills/` directory into your project.
 2. In `.github/copilot-instructions.md`, add:
 ```markdown
 For performance testing questions, reference the perf-skills knowledge base.
@@ -125,7 +121,7 @@ Start with perf-skills/SKILL.md, then load relevant files from perf-skills/refer
 
 ### OpenCode / Antigravity / Pochi
 
-1. Copy the `perf-skills/perf-skills/` directory into your project.
+1. Copy the `perf-skills/` directory into your project.
 2. Add to your project-level custom instructions or context files:
 ```
 For performance testing guidance, consult the perf-skills knowledge base.
@@ -145,28 +141,35 @@ Browse the markdown files directly — they're self-contained references useful 
 ## File Structure
 
 ```
-perf-skills/
-├── SKILL.md                          # Entry point — tool selection, lifecycle, key principles
-└── references/
-    ├── tools/                        # Tool-specific syntax and configuration
-    │   ├── jmeter.md                 # JMeter 5.6+ — samplers, extractors, plugins, Groovy
-    │   ├── k6.md                     # k6 v0.50+ — executors, checks, thresholds, modules
-    │   ├── gatling.md                # Gatling 3.10+ — Scala/Java DSL, feeders, injection
-    │   ├── locust.md                 # Locust 2.20+ — Python scripts, events, FastHttpUser
-    │   ├── neoload.md                # NeoLoad — GUI workflow, CLI, API execution
-    │   ├── loadrunner.md             # LoadRunner — VuGen, protocols, Controller scenarios
-    │   └── octoperf.md              # OctoPerf — JMeter-based SaaS, HAR import, cloud
-    └── topics/                       # Cross-cutting concepts (tool-agnostic)
-        ├── workload-design.md        # Concurrency models, load profiles, Little's Law
-        ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
-        ├── script-generation.md      # Correlation, assertions, error handling, naming
-        ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
-        ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
-        ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
-        ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
-        ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
-        ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
-        └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
+perf-skills/                              # Repository root
+├── .claude-plugin/
+│   └── marketplace.json                  # Claude Code marketplace catalog
+├── README.md
+├── LICENSE.md
+└── perf-skills/                          # Plugin / Skill directory
+    ├── .claude-plugin/
+    │   └── plugin.json                   # Claude Code plugin manifest
+    ├── SKILL.md                          # Entry point — tool selection, lifecycle, key principles
+    └── references/
+        ├── tools/                        # Tool-specific syntax and configuration
+        │   ├── jmeter.md                 # JMeter 5.6+ — samplers, extractors, plugins, Groovy
+        │   ├── k6.md                     # k6 v0.50+ — executors, checks, thresholds, modules
+        │   ├── gatling.md                # Gatling 3.10+ — Scala/Java DSL, feeders, injection
+        │   ├── locust.md                 # Locust 2.20+ — Python scripts, events, FastHttpUser
+        │   ├── neoload.md                # NeoLoad — GUI workflow, CLI, API execution
+        │   ├── loadrunner.md             # LoadRunner — VuGen, protocols, Controller scenarios
+        │   └── octoperf.md              # OctoPerf — JMeter-based SaaS, HAR import, cloud
+        └── topics/                       # Cross-cutting concepts (tool-agnostic)
+            ├── workload-design.md        # Concurrency models, load profiles, Little's Law
+            ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
+            ├── script-generation.md      # Correlation, assertions, error handling, naming
+            ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
+            ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
+            ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
+            ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
+            ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
+            ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
+            └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
 ```
 
 ## How the Skill Works
