@@ -73,7 +73,8 @@ npx skills add QAInsights/perf-skills
 ```bash
 # Clone and copy to Claude skills directory
 git clone https://github.com/QAInsights/perf-skills.git
-cp -r perf-skills/perf-skills/ ~/.claude/skills/
+cd perf-skills
+cp -r perf-skills/ ~/.claude/skills/
 ```
 
 ### Windsurf (Skills)
