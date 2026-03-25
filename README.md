@@ -67,7 +67,7 @@ After install, the `/perf-skills` skill is available and auto-activates on perfo
 ```bash
 # Clone and copy to Claude skills directory
 git clone https://github.com/QAInsights/perf-skills.git
-cp -r perf-skills/perf-skills/ ~/.claude/skills/
+cp -r perf-skills/ ~/.claude/skills/
 ```
 
 ### Windsurf (Skills)
