@@ -26,23 +26,23 @@ Read the relevant reference files based on what the user needs. Multiple files m
 | User needs help with... | Read this file |
 |---|---|
 | Choosing the right tool | This file — see Tool Selection Matrix below |
-| JMeter scripts, plugins, config | `../references/tools/jmeter.md` |
-| k6 scripting, extensions, cloud | `../references/tools/k6.md` |
-| Gatling simulations, Scala/Java DSL | `../references/tools/gatling.md` |
-| Locust Python tests, distributed | `../references/tools/locust.md` |
-| NeoLoad projects, GUI, APIs | `../references/tools/neoload.md` |
-| LoadRunner scripts, protocols, VuGen | `../references/tools/loadrunner.md` |
-| OctoPerf cloud test management | `../references/tools/octoperf.md` |
-| Designing workloads, concurrency, pacing | `../references/topics/workload-design.md` |
-| Test data, parameterization, CSV feeds | `../references/topics/test-data.md` |
-| Script patterns, correlation, best practices | `../references/topics/script-generation.md` |
-| CI/CD, distributed execution, cloud runners | `../references/topics/test-execution.md` |
-| Analyzing results, percentiles, SLAs | `../references/topics/results-analysis.md` |
-| APM, metrics, tracing, dashboards | `../references/topics/observability.md` |
-| Staging vs production testing strategies | `../references/topics/production-testing.md` |
-| gRPC, GraphQL, WebSocket, messaging protocols | `../references/topics/protocol-testing.md` |
-| Database load testing (JDBC, connection pools) | `../references/topics/database-testing.md` |
-| Microservices, K8s, serverless performance | `../references/topics/modern-architectures.md` |
+| JMeter scripts, plugins, config | `references/tools/jmeter.md` |
+| k6 scripting, extensions, cloud | `references/tools/k6.md` |
+| Gatling simulations, Scala/Java DSL | `references/tools/gatling.md` |
+| Locust Python tests, distributed | `references/tools/locust.md` |
+| NeoLoad projects, GUI, APIs | `references/tools/neoload.md` |
+| LoadRunner scripts, protocols, VuGen | `references/tools/loadrunner.md` |
+| OctoPerf cloud test management | `references/tools/octoperf.md` |
+| Designing workloads, concurrency, pacing | `references/topics/workload-design.md` |
+| Test data, parameterization, CSV feeds | `references/topics/test-data.md` |
+| Script patterns, correlation, best practices | `references/topics/script-generation.md` |
+| CI/CD, distributed execution, cloud runners | `references/topics/test-execution.md` |
+| Analyzing results, percentiles, SLAs | `references/topics/results-analysis.md` |
+| APM, metrics, tracing, dashboards | `references/topics/observability.md` |
+| Staging vs production testing strategies | `references/topics/production-testing.md` |
+| gRPC, GraphQL, WebSocket, messaging protocols | `references/topics/protocol-testing.md` |
+| Database load testing (JDBC, connection pools) | `references/topics/database-testing.md` |
+| Microservices, K8s, serverless performance | `references/topics/modern-architectures.md` |
 
 ### Protocol Routing Table
 
@@ -51,11 +51,11 @@ When the user's question is protocol-specific, use this to select the right tool
 | Protocol | Recommended Tools | Reference |
 |---|---|---|
 | HTTP / REST | k6, Gatling, JMeter | Tool file |
-| gRPC | k6, Gatling, JMeter (plugin) | `../references/topics/protocol-testing.md` + tool file |
-| GraphQL | k6, Gatling | `../references/topics/protocol-testing.md` + tool file |
-| WebSocket / SSE | Gatling, k6 | `../references/topics/protocol-testing.md` + tool file |
-| JDBC / Database | JMeter | `../references/topics/database-testing.md` + `../references/tools/jmeter.md` |
-| Kafka / Message Queues | k6 (xk6-kafka), JMeter | `../references/topics/protocol-testing.md` |
+| gRPC | k6, Gatling, JMeter (plugin) | `references/topics/protocol-testing.md` + tool file |
+| GraphQL | k6, Gatling | `references/topics/protocol-testing.md` + tool file |
+| WebSocket / SSE | Gatling, k6 | `references/topics/protocol-testing.md` + tool file |
+| JDBC / Database | JMeter | `references/topics/database-testing.md` + `references/tools/jmeter.md` |
+| Kafka / Message Queues | k6 (xk6-kafka), JMeter | `references/topics/protocol-testing.md` |
 | SOAP / WSDL | LoadRunner, JMeter | Tool file |
 | SAP / Citrix | LoadRunner, NeoLoad | Tool file |
 
