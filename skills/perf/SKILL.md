@@ -1,5 +1,5 @@
 ---
-name: perf-skills
+name: perf
 description: Use when load testing with JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, or OctoPerf.
 ---
 
