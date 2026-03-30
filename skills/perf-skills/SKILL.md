@@ -1,6 +1,6 @@
 ---
 name: perf-skills
-description: "Performance testing guidance for JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, OctoPerf"
+description: Performance testing guidance for JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, OctoPerf
 ---
 
 # Performance Testing Skill (perf-skills)
