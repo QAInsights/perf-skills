@@ -1,11 +1,6 @@
 ---
 name: perf-skills
-description: >
-  Expert guidance for performance testing: planning, scripting, executing, and analyzing
-  load/stress/soak/spike tests using JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner,
-  OctoPerf. Covers workload design, test data, correlation, CI/CD integration,
-  distributed testing, observability, production testing, and protocol-specific guidance
-  for HTTP, gRPC, GraphQL, WebSocket, JDBC, and message queues.
+description: "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests using JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and OctoPerf"
 ---
 
 # Performance Testing Skill (perf-skills)
