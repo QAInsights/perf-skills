@@ -161,35 +161,33 @@ Browse the markdown files directly — they're self-contained references useful 
 ```
 perf-skills/                              # Repository root
 ├── .claude-plugin/
-│   └── marketplace.json                  # Claude Code marketplace catalog
+│   ├── marketplace.json                  # Claude Code marketplace catalog
+│   └── plugin.json                       # Claude Code plugin manifest
 ├── README.md
 ├── LICENSE.md
-└── perf-skills/                          # Plugin / Skill directory
-    ├── .claude-plugin/
-    │   └── plugin.json                   # Claude Code plugin manifest
-    └── skills/
-        └── perf-skills/                  # Skill module
-            ├── SKILL.md                  # Entry point — tool selection, lifecycle, key principles
-            └── references/
-                ├── tools/                # Tool-specific syntax and configuration
-                │   ├── jmeter.md         # JMeter 5.6+ — samplers, extractors, plugins, Groovy
-                │   ├── k6.md             # k6 v0.50+ — executors, checks, thresholds, modules
-                │   ├── gatling.md        # Gatling 3.10+ — Scala/Java DSL, feeders, injection
-                │   ├── locust.md         # Locust 2.20+ — Python scripts, events, FastHttpUser
-                │   ├── neoload.md        # NeoLoad — GUI workflow, CLI, API execution
-                │   ├── loadrunner.md     # LoadRunner — VuGen, protocols, Controller scenarios
-                │   └── octoperf.md       # OctoPerf — JMeter-based SaaS, HAR import, cloud
-                └── topics/               # Cross-cutting concepts (tool-agnostic)
-                    ├── workload-design.md        # Concurrency models, load profiles, Little's Law
-                    ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
-                    ├── script-generation.md      # Correlation, assertions, error handling, naming
-                    ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
-                    ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
-                    ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
-                    ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
-                    ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
-                    ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
-                    └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
+└── skills/
+    └── perf-skills/                      # Skill module
+        ├── SKILL.md                      # Entry point — tool selection, lifecycle, key principles
+        └── references/
+            ├── tools/                    # Tool-specific syntax and configuration
+            │   ├── jmeter.md             # JMeter 5.6+ — samplers, extractors, plugins, Groovy
+            │   ├── k6.md                 # k6 v0.50+ — executors, checks, thresholds, modules
+            │   ├── gatling.md            # Gatling 3.10+ — Scala/Java DSL, feeders, injection
+            │   ├── locust.md             # Locust 2.20+ — Python scripts, events, FastHttpUser
+            │   ├── neoload.md            # NeoLoad — GUI workflow, CLI, API execution
+            │   ├── loadrunner.md         # LoadRunner — VuGen, protocols, Controller scenarios
+            │   └── octoperf.md           # OctoPerf — JMeter-based SaaS, HAR import, cloud
+            └── topics/                   # Cross-cutting concepts (tool-agnostic)
+                ├── workload-design.md        # Concurrency models, load profiles, Little's Law
+                ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
+                ├── script-generation.md      # Correlation, assertions, error handling, naming
+                ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
+                ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
+                ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
+                ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
+                ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
+                ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
+                └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
 ```
 
 ## How the Skill Works
