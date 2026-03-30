@@ -52,7 +52,7 @@
 **Add the marketplace and install:**
 ```bash
 /plugin marketplace add QAInsights/perf-skills
-/plugin install perf-skills@perf-skills
+/plugin install perf-skills@qainsights
 ```
 
 After install, the `/perf-skills` skill is available and auto-activates on performance testing questions.
