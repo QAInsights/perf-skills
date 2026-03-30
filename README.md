@@ -53,13 +53,17 @@
 ```bash
 /plugin marketplace add QAInsights/perf-skills
 /plugin install perf-skills@qainsights
+/reload-plugins
 ```
 
-After install, the `/perf-skills` skill is available and auto-activates on performance testing questions.
+After install, the `/perf-skills:perf-skills` skill is available and auto-activates on performance testing questions.
 
 **Update to latest version:**
 ```bash
 /plugin marketplace update
+/plugin uninstall perf-skills
+/plugin install perf-skills@qainsights
+/reload-plugins
 ```
 
 ### Install as Skills (npx)
