@@ -1,5 +1,5 @@
 ﻿---
-description: "Access performance testing expertise and guidance"
+description: Access performance testing expertise and guidance for JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and OctoPerf.
 ---
 
 For performance testing questions, consult the perf-skills knowledge base.
