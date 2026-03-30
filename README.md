@@ -52,7 +52,7 @@
 **Add the marketplace and install:**
 ```bash
 /plugin marketplace add QAInsights/perf-skills
-/plugin install perf-skills@qainsights
+/plugin install perf@qainsights
 /reload-plugins
 ```
 
@@ -61,8 +61,8 @@ After install, the `/perf` skill is available and auto-activates on performance 
 **Update to latest version:**
 ```bash
 /plugin marketplace update
-/plugin uninstall perf-skills
-/plugin install perf-skills@qainsights
+/plugin uninstall perf
+/plugin install perf@qainsights
 /reload-plugins
 ```
 
@@ -77,73 +77,73 @@ npx skills add QAInsights/perf-skills
 ```bash
 # Clone and copy to Claude skills directory
 git clone https://github.com/QAInsights/perf-skills.git
-cp -r perf-skills/skills/perf-skills ~/.claude/skills/
+cp -r perf-skills/skills/perf ~/.claude/skills/
 ```
 
 ### Windsurf (Skills)
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory: `cp -r perf-skills/skills/perf-skills ~/.windsurf/skills/`
+2. Copy the skill directory: `cp -r perf-skills/skills/perf ~/.windsurf/skills/`
 3. The skill auto-triggers when you ask about performance testing, load testing, or any supported tool.
 
 ### Cursor (Rules / Docs)
 
 **Option A — Project Rules:**
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Create `.cursor/rules/perf-skills.mdc` in your project root.
-3. Copy content from `perf-skills/skills/perf-skills/SKILL.md` into the rule file.
+2. Create `.cursor/rules/perf.mdc` in your project root.
+3. Copy content from `perf-skills/skills/perf/SKILL.md` into the rule file.
 
 **Option B — @Docs indexing:**
 1. Clone the repository into your project or a known location.
 2. Open Cursor Settings → Features → Docs.
-3. Add the `perf-skills/skills/perf-skills/` directory as a doc source.
-4. Reference with `@Docs perf-skills` in chat.
+3. Add the `perf-skills/skills/perf/` directory as a doc source.
+4. Reference with `@Docs perf` in chat.
 
 ### Claude Code (CLAUDE.md)
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
 3. In your `CLAUDE.md`, add:
 ```markdown
-For performance testing questions, read `perf-skills/SKILL.md` for routing,
-then load the relevant reference file(s) from `perf-skills/references/`.
+For performance testing questions, read `perf/SKILL.md` for routing,
+then load the relevant reference file(s) from `perf/references/`.
 ```
 
 ### Cline / Roo Code
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
 3. Add to your custom instructions or `.clinerules`:
 ```
-For performance testing guidance, consult the perf-skills knowledge base.
-Start with perf-skills/SKILL.md for routing to the correct reference file.
+For performance testing guidance, consult the perf knowledge base.
+Start with perf/SKILL.md for routing to the correct reference file.
 ```
 
 ### Aider
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
-3. Use `/read perf-skills/SKILL.md` to load the routing file.
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
+3. Use `/read perf/SKILL.md` to load the routing file.
 4. Then `/read` the specific reference file(s) relevant to your question.
 
 ### GitHub Copilot
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
 3. In `.github/copilot-instructions.md`, add:
 ```markdown
-For performance testing questions, reference the perf-skills knowledge base.
-Start with perf-skills/SKILL.md, then load relevant files from perf-skills/references/.
+For performance testing questions, reference the perf knowledge base.
+Start with perf/SKILL.md, then load relevant files from perf/references/.
 ```
 
 ### OpenCode / Antigravity / Pochi
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
 3. Add to your project-level custom instructions or context files:
 ```
-For performance testing guidance, consult the perf-skills knowledge base.
-Start with perf-skills/SKILL.md for routing to the correct reference file.
+For performance testing guidance, consult the perf knowledge base.
+Start with perf/SKILL.md for routing to the correct reference file.
 ```
 
 ### Any Other AI Tool
@@ -166,7 +166,7 @@ perf-skills/                              # Repository root
 ├── README.md
 ├── LICENSE.md
 └── skills/
-    └── perf-skills/                      # Skill module
+    └── perf/                             # Skill module
         ├── SKILL.md                      # Entry point — tool selection, lifecycle, key principles
         └── references/
             ├── tools/                    # Tool-specific syntax and configuration
