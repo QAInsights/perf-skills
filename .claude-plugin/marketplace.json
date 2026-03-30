@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Expert AI skill for performance testing — covers the full lifecycle using JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and OctoPerf.",
-    "version": "1.0.1"
+    "version": "1.0.2"
   },
   "plugins": [
     {
       "name": "perf",
       "source": "./",
       "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 7 tools and 10 topic areas.",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "NaveenKumar Namachivayam",
         "email": "contact@qainsights.com"
@@ -37,13 +37,45 @@
         "graphql",
         "websocket",
         "observability",
-        "ci-cd"
+        "ci-cd",
+        "performance-testing-best-practices",
+        "performance-testing-strategies",
+        "black-friday-performance-testing",
+        "cyber-monday-performance-testing",
+        "holiday-performance-testing",
+        "super-bowl-performance-testing"
       ],
       "category": "testing",
       "tags": [
         "performance",
         "load-testing",
-        "quality-engineering"
+        "quality-engineering",
+        "testing",
+        "stress-testing",
+        "soak-testing",
+        "spike-testing",
+        "capacity-testing",
+        "breakpoint-testing",
+        "smoke-testing",
+        "regression-testing",
+        "performance-analysis",
+        "load-testing-tools",
+        "performance-testing-tools",
+        "load-testing-frameworks",
+        "performance-testing-frameworks",
+        "performance-testing-automation",
+        "jmeter",
+        "k6",
+        "gatling",
+        "locust",
+        "neoload",
+        "loadrunner",
+        "octoperf",
+        "performance-engineering",
+        "load-testing-automation",
+        "performance-testing-automation",
+        "performance-testing-best-practices",
+        "performance-testing-strategies"
       ]
     }
   ]
