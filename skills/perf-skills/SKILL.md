@@ -1,6 +1,6 @@
 ---
 name: perf-skills
-description: Performance testing guidance for JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, OctoPerf
+description: Expert performance testing guidance for JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and OctoPerf. Use when writing, executing, or analyzing load tests, designing workloads, or debugging performance issues.
 ---
 
 # Performance Testing Skill (perf-skills)
