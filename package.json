@@ -2,9 +2,10 @@
   "name": "perf-skills",
   "version": "1.0.0",
   "description": "Expert AI skill for performance testing — covers JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, OctoPerf across the full lifecycle",
-  "main": "perf-skills/SKILL.md",
+  "main": "skills/perf-skills/SKILL.md",
   "files": [
-    "perf-skills/"
+    "skills/",
+    ".claude-plugin/"
   ],
   "keywords": [
     "performance-testing",
@@ -32,7 +33,7 @@
   },
   "author": {
     "name": "NaveenKumar Namachivayam",
-    "email": "info@qainsights.com"
+    "email": "contact@qainsights.com"
   },
   "license": "MIT",
   "homepage": "https://github.com/QAInsights/perf-skills#readme",

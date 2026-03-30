@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "perf-skills",
-      "source": "./perf-skills",
+      "source": ".",
       "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 7 tools and 10 topic areas.",
       "version": "1.0.0",
       "author": {
