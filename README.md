@@ -56,7 +56,7 @@
 /reload-plugins
 ```
 
-After install, the `/perf-skills:perf-skills` skill is available and auto-activates on performance testing questions.
+After install, the `/perf` skill is available and auto-activates on performance testing questions.
 
 **Update to latest version:**
 ```bash
