@@ -78,29 +78,33 @@ npx skills add QAInsights/perf-skills
 # Clone and copy to Claude skills directory
 git clone https://github.com/QAInsights/perf-skills.git
 cd perf-skills
-cp -r perf-skills/ ~/.claude/skills/
+cp -r perf-skills/skills/perf-skills ~/.claude/skills/
 ```
 
 ### Windsurf (Skills)
 
-1. Copy the `perf-skills/` directory into your Windsurf skills location.
-2. The skill auto-triggers when you ask about performance testing, load testing, or any supported tool.
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Copy the skill directory: `cp -r perf-skills/perf-skills/skills/perf-skills ~/.windsurf/skills/`
+3. The skill auto-triggers when you ask about performance testing, load testing, or any supported tool.
 
 ### Cursor (Rules / Docs)
 
 **Option A — Project Rules:**
-1. Create `.cursor/rules/perf-skills.mdc` in your project root.
-2. Add the content of `SKILL.md` as the rule, with file references pointing to the `references/` directory.
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Create `.cursor/rules/perf-skills.mdc` in your project root.
+3. Copy content from `perf-skills/perf-skills/skills/perf-skills/SKILL.md` into the rule file.
 
 **Option B — @Docs indexing:**
-1. Open Cursor Settings → Features → Docs.
-2. Add the `perf-skills/` directory as a doc source.
-3. Reference with `@Docs perf-skills` in chat.
+1. Clone the repository into your project or a known location.
+2. Open Cursor Settings → Features → Docs.
+3. Add the `perf-skills/perf-skills/skills/perf-skills/` directory as a doc source.
+4. Reference with `@Docs perf-skills` in chat.
 
 ### Claude Code (CLAUDE.md)
 
-1. Copy the `perf-skills/` directory into your project.
-2. In your `CLAUDE.md`, add:
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+3. In your `CLAUDE.md`, add:
 ```markdown
 For performance testing questions, read `perf-skills/SKILL.md` for routing,
 then load the relevant reference file(s) from `perf-skills/references/`.
@@ -108,8 +112,9 @@ then load the relevant reference file(s) from `perf-skills/references/`.
 
 ### Cline / Roo Code
 
-1. Copy the `perf-skills/` directory into your project.
-2. Add to your custom instructions or `.clinerules`:
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+3. Add to your custom instructions or `.clinerules`:
 ```
 For performance testing guidance, consult the perf-skills knowledge base.
 Start with perf-skills/SKILL.md for routing to the correct reference file.
@@ -117,14 +122,16 @@ Start with perf-skills/SKILL.md for routing to the correct reference file.
 
 ### Aider
 
-1. Copy the `perf-skills/` directory into your project.
-2. Use `/read perf-skills/SKILL.md` to load the routing file.
-3. Then `/read` the specific reference file(s) relevant to your question.
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+3. Use `/read perf-skills/SKILL.md` to load the routing file.
+4. Then `/read` the specific reference file(s) relevant to your question.
 
 ### GitHub Copilot
 
-1. Copy the `perf-skills/` directory into your project.
-2. In `.github/copilot-instructions.md`, add:
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+3. In `.github/copilot-instructions.md`, add:
 ```markdown
 For performance testing questions, reference the perf-skills knowledge base.
 Start with perf-skills/SKILL.md, then load relevant files from perf-skills/references/.
@@ -132,8 +139,9 @@ Start with perf-skills/SKILL.md, then load relevant files from perf-skills/refer
 
 ### OpenCode / Antigravity / Pochi
 
-1. Copy the `perf-skills/` directory into your project.
-2. Add to your project-level custom instructions or context files:
+1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
+2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+3. Add to your project-level custom instructions or context files:
 ```
 For performance testing guidance, consult the perf-skills knowledge base.
 Start with perf-skills/SKILL.md for routing to the correct reference file.
@@ -160,27 +168,29 @@ perf-skills/                              # Repository root
 └── perf-skills/                          # Plugin / Skill directory
     ├── .claude-plugin/
     │   └── plugin.json                   # Claude Code plugin manifest
-    ├── SKILL.md                          # Entry point — tool selection, lifecycle, key principles
-    └── references/
-        ├── tools/                        # Tool-specific syntax and configuration
-        │   ├── jmeter.md                 # JMeter 5.6+ — samplers, extractors, plugins, Groovy
-        │   ├── k6.md                     # k6 v0.50+ — executors, checks, thresholds, modules
-        │   ├── gatling.md                # Gatling 3.10+ — Scala/Java DSL, feeders, injection
-        │   ├── locust.md                 # Locust 2.20+ — Python scripts, events, FastHttpUser
-        │   ├── neoload.md                # NeoLoad — GUI workflow, CLI, API execution
-        │   ├── loadrunner.md             # LoadRunner — VuGen, protocols, Controller scenarios
-        │   └── octoperf.md              # OctoPerf — JMeter-based SaaS, HAR import, cloud
-        └── topics/                       # Cross-cutting concepts (tool-agnostic)
-            ├── workload-design.md        # Concurrency models, load profiles, Little's Law
-            ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
-            ├── script-generation.md      # Correlation, assertions, error handling, naming
-            ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
-            ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
-            ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
-            ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
-            ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
-            ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
-            └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
+    └── skills/
+        └── perf-skills/                  # Skill module
+            ├── SKILL.md                  # Entry point — tool selection, lifecycle, key principles
+            └── references/
+                ├── tools/                # Tool-specific syntax and configuration
+                │   ├── jmeter.md         # JMeter 5.6+ — samplers, extractors, plugins, Groovy
+                │   ├── k6.md             # k6 v0.50+ — executors, checks, thresholds, modules
+                │   ├── gatling.md        # Gatling 3.10+ — Scala/Java DSL, feeders, injection
+                │   ├── locust.md         # Locust 2.20+ — Python scripts, events, FastHttpUser
+                │   ├── neoload.md        # NeoLoad — GUI workflow, CLI, API execution
+                │   ├── loadrunner.md     # LoadRunner — VuGen, protocols, Controller scenarios
+                │   └── octoperf.md       # OctoPerf — JMeter-based SaaS, HAR import, cloud
+                └── topics/               # Cross-cutting concepts (tool-agnostic)
+                    ├── workload-design.md        # Concurrency models, load profiles, Little's Law
+                    ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
+                    ├── script-generation.md      # Correlation, assertions, error handling, naming
+                    ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
+                    ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
+                    ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
+                    ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
+                    ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
+                    ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
+                    └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
 ```
 
 ## How the Skill Works
