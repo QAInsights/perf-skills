@@ -6,7 +6,7 @@
     {
       "name": "perf-skills",
       "description": "Access performance testing expertise and guidance",
-      "context": "SKILL.md"
+      "context": "../SKILL.md"
     }
   ]
 }
