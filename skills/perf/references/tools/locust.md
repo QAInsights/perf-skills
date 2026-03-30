@@ -130,4 +130,4 @@ def on_test_stop(environment, **kwargs):
 - Use distributed mode above 500–1000 VUs — a single worker process saturates one CPU core.
 
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
-> For CI/CD integration and distributed execution details, see `references/topics/test-execution.md`.
+> For CI/CD integration and distributed execution details, see `../topics/test-execution.md`.

@@ -113,4 +113,4 @@ web_add_header("Authorization", "Bearer {AuthToken}");
 - Export to Excel or integrate with LoadRunner Cloud for trend analysis across runs.
 
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
-> For CI/CD integration details, see `references/topics/test-execution.md`.
+> For CI/CD integration details, see `../topics/test-execution.md`.

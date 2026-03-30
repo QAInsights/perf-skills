@@ -92,7 +92,7 @@ rampUsersPerSec(10).to(100).during(3.minutes)       // Ramp RPS from 10 to 100
 heavisideUsers(1000).during(20.seconds)             // S-curve injection (realistic burst)
 ```
 
-> For closed vs open model guidance and when to use each, see `references/topics/workload-design.md`.
+> For closed vs open model guidance and when to use each, see `../topics/workload-design.md`.
 
 ---
 
@@ -282,5 +282,5 @@ Gatling generates an HTML report in `target/gatling/<simulation-timestamp>/index
 - **Use `global` or named `details()` assertions** — asserting on individual requests instead of aggregated transactions is noisy.
 - **Prefer `heavisideUsers` for burst injection** — S-curve injection is more realistic than `atOnceUsers` for spike tests.
 
-> For CI/CD integration (Maven, Gradle, GitHub Actions), see `references/topics/test-execution.md`.
+> For CI/CD integration (Maven, Gradle, GitHub Actions), see `../topics/test-execution.md`.
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.

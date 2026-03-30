@@ -47,4 +47,4 @@ curl -X POST "https://api.octoperf.com/analysis/executions" \
 - Always set **SLA thresholds** in the test profile so CI gates work reliably.
 
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
-> For CI/CD integration details, see `references/topics/test-execution.md`.
+> For CI/CD integration details, see `../topics/test-execution.md`.

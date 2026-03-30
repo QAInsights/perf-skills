@@ -58,4 +58,4 @@ curl -X POST "https://neoload-api.tricentis.com/v3/tests/{testId}/start" \
 - Use **as-code YAML definitions** (NeoLoad as Code) for version-controlled test configs.
 
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
-> For CI/CD integration details, see `references/topics/test-execution.md`.
+> For CI/CD integration details, see `../topics/test-execution.md`.

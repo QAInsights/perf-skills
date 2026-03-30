@@ -198,7 +198,7 @@ Realistic web-app think time: Gaussian with constant=3000ms, deviation=1500ms.
 
 ## Running JMeter Non-GUI (Command Line)
 
-> For distributed testing architecture and setup, see `references/topics/test-execution.md`.
+> For distributed testing architecture and setup, see `../topics/test-execution.md`.
 
 Always run load tests in non-GUI mode:
 ```bash
@@ -247,5 +247,5 @@ Install plugins via: **Options → Plugins Manager → Available Plugins**
 - **Use JSR223 (Groovy) over BeanShell** — Groovy is compiled and cached; BeanShell is interpreted per invocation.
 - **Set JVM heap** for large tests: `JVM_ARGS="-Xms2g -Xmx4g" jmeter -n -t test.jmx`
 
-> For CI/CD integration (Maven, GitHub Actions, GitLab, Jenkins), see `references/topics/test-execution.md`.
+> For CI/CD integration (Maven, GitHub Actions, GitLab, Jenkins), see `../topics/test-execution.md`.
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
