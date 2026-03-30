@@ -84,7 +84,7 @@ cp -r perf-skills/skills/perf-skills ~/.claude/skills/
 ### Windsurf (Skills)
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory: `cp -r perf-skills/perf-skills/skills/perf-skills ~/.windsurf/skills/`
+2. Copy the skill directory: `cp -r perf-skills/skills/perf-skills ~/.windsurf/skills/`
 3. The skill auto-triggers when you ask about performance testing, load testing, or any supported tool.
 
 ### Cursor (Rules / Docs)
@@ -92,18 +92,18 @@ cp -r perf-skills/skills/perf-skills ~/.claude/skills/
 **Option A — Project Rules:**
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
 2. Create `.cursor/rules/perf-skills.mdc` in your project root.
-3. Copy content from `perf-skills/perf-skills/skills/perf-skills/SKILL.md` into the rule file.
+3. Copy content from `perf-skills/skills/perf-skills/SKILL.md` into the rule file.
 
 **Option B — @Docs indexing:**
 1. Clone the repository into your project or a known location.
 2. Open Cursor Settings → Features → Docs.
-3. Add the `perf-skills/perf-skills/skills/perf-skills/` directory as a doc source.
+3. Add the `perf-skills/skills/perf-skills/` directory as a doc source.
 4. Reference with `@Docs perf-skills` in chat.
 
 ### Claude Code (CLAUDE.md)
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
 3. In your `CLAUDE.md`, add:
 ```markdown
 For performance testing questions, read `perf-skills/SKILL.md` for routing,
@@ -113,7 +113,7 @@ then load the relevant reference file(s) from `perf-skills/references/`.
 ### Cline / Roo Code
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
 3. Add to your custom instructions or `.clinerules`:
 ```
 For performance testing guidance, consult the perf-skills knowledge base.
@@ -123,14 +123,14 @@ Start with perf-skills/SKILL.md for routing to the correct reference file.
 ### Aider
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
 3. Use `/read perf-skills/SKILL.md` to load the routing file.
 4. Then `/read` the specific reference file(s) relevant to your question.
 
 ### GitHub Copilot
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
 3. In `.github/copilot-instructions.md`, add:
 ```markdown
 For performance testing questions, reference the perf-skills knowledge base.
@@ -140,7 +140,7 @@ Start with perf-skills/SKILL.md, then load relevant files from perf-skills/refer
 ### OpenCode / Antigravity / Pochi
 
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/perf-skills/skills/perf-skills ./perf-skills`
+2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf-skills ./perf-skills`
 3. Add to your project-level custom instructions or context files:
 ```
 For performance testing guidance, consult the perf-skills knowledge base.
