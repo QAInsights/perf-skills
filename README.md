@@ -1,12 +1,12 @@
 # perf-skills
 
-> *"The more you sweat in training, the less you bleed in battle."* — Richard Marcinko
+> *"The more you sweat in training, the less you bleed in battle."* - Richard Marcinko
 >
 > The more relevant skills your AI loads during development, the fewer fires you fight in production.
 
 ## What Is This?
 
-`perf-skills` is a structured knowledge base that gives AI coding assistants deep, opinionated expertise in performance testing. It works with any AI tool that supports custom instructions, rules, or skill files — helping you plan, script, execute, and analyze load tests using any major tool.
+`perf-skills` is a structured knowledge base that gives AI coding assistants deep, opinionated expertise in performance testing. It works with any AI tool that supports custom instructions, rules, or skill files - helping you plan, script, execute, and analyze load tests using any major tool.
 
 ### Supported Tools
 
@@ -19,22 +19,22 @@
 
 ### Topics Covered
 
-- **Workload design** — concurrency models, Little's Law, transaction mix, SLA targets
-- **Test data** — parameterization, CSV feeds, synthetic data, data isolation
-- **Script generation** — correlation, assertions, error handling, session management
-- **Test execution** — local, distributed, CI/CD pipelines, cloud execution
-- **Results analysis** — percentiles, bottleneck identification, trend comparison, reporting
-- **Observability** — APM integration, Prometheus/Grafana, distributed tracing, log correlation
-- **Production testing** — canary, shadow traffic, chaos engineering, safety controls
-- **Protocol testing** — gRPC, GraphQL, WebSocket/SSE, Kafka/message queues
-- **Database testing** — JDBC load testing, connection pools, query concurrency, replication lag
-- **Modern architectures** — microservices, Kubernetes (HPA, service mesh), serverless (cold starts), frontend (Core Web Vitals)
+- **Workload design** - concurrency models, Little's Law, transaction mix, SLA targets
+- **Test data** - parameterization, CSV feeds, synthetic data, data isolation
+- **Script generation** - correlation, assertions, error handling, session management
+- **Test execution** - local, distributed, CI/CD pipelines, cloud execution
+- **Results analysis** - percentiles, bottleneck identification, trend comparison, reporting
+- **Observability** - APM integration, Prometheus/Grafana, distributed tracing, log correlation
+- **Production testing** - canary, shadow traffic, chaos engineering, safety controls
+- **Protocol testing** - gRPC, GraphQL, WebSocket/SSE, Kafka/message queues
+- **Database testing** - JDBC load testing, connection pools, query concurrency, replication lag
+- **Modern architectures** - microservices, Kubernetes (HPA, service mesh), serverless (cold starts), frontend (Core Web Vitals)
 
 ## Compatible AI Coding Assistants
 
 | Tool | Integration Method | Setup |
 |---|---|---|
-| **Windsurf (Cascade)** | Skills | Copy to skills directory — auto-triggers on perf questions |
+| **Windsurf (Cascade)** | Skills | Copy to skills directory - auto-triggers on perf questions |
 | **Cursor** | Rules / Docs | Add as project rules or index via `@Docs` |
 | **Claude Code** | CLAUDE.md / Custom instructions | Reference files in `CLAUDE.md` or feed as context |
 | **Cline** | Custom instructions / `.clinerules` | Add to `.clinerules` or workspace instructions |
@@ -88,12 +88,12 @@ cp -r perf-skills/skills/perf ~/.claude/skills/
 
 ### Cursor (Rules / Docs)
 
-**Option A — Project Rules:**
+**Option A - Project Rules:**
 1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
 2. Create `.cursor/rules/perf.mdc` in your project root.
 3. Copy content from `perf-skills/skills/perf/SKILL.md` into the rule file.
 
-**Option B — @Docs indexing:**
+**Option B - @Docs indexing:**
 1. Clone the repository into your project or a known location.
 2. Open Cursor Settings → Features → Docs.
 3. Add the `perf-skills/skills/perf/` directory as a doc source.
@@ -154,7 +154,7 @@ The skill is plain markdown files. Any AI tool that can read files or accept cus
 
 ### As a Standalone Knowledge Base
 
-Browse the markdown files directly — they're self-contained references useful even without an AI assistant.
+Browse the markdown files directly - they're self-contained references useful even without an AI assistant.
 
 ## File Structure
 
@@ -167,16 +167,16 @@ perf-skills/                              # Repository root
 ├── LICENSE.md
 └── skills/
     └── perf/                             # Skill module
-        ├── SKILL.md                      # Entry point — tool selection, lifecycle, key principles
+        ├── SKILL.md                      # Entry point - tool selection, lifecycle, key principles
         └── references/
             ├── tools/                    # Tool-specific syntax and configuration
-            │   ├── jmeter.md             # JMeter 5.6+ — samplers, extractors, plugins, Groovy
-            │   ├── k6.md                 # k6 v0.50+ — executors, checks, thresholds, modules
-            │   ├── gatling.md            # Gatling 3.10+ — Scala/Java DSL, feeders, injection
-            │   ├── locust.md             # Locust 2.20+ — Python scripts, events, FastHttpUser
-            │   ├── neoload.md            # NeoLoad — GUI workflow, CLI, API execution
-            │   ├── loadrunner.md         # LoadRunner — VuGen, protocols, Controller scenarios
-            │   └── octoperf.md           # OctoPerf — JMeter-based SaaS, HAR import, cloud
+            │   ├── jmeter.md             # JMeter 5.6+ - samplers, extractors, plugins, Groovy
+            │   ├── k6.md                 # k6 v0.50+ - executors, checks, thresholds, modules
+            │   ├── gatling.md            # Gatling 3.10+ - Scala/Java DSL, feeders, injection
+            │   ├── locust.md             # Locust 2.20+ - Python scripts, events, FastHttpUser
+            │   ├── neoload.md            # NeoLoad - GUI workflow, CLI, API execution
+            │   ├── loadrunner.md         # LoadRunner - VuGen, protocols, Controller scenarios
+            │   └── octoperf.md           # OctoPerf - JMeter-based SaaS, HAR import, cloud
             └── topics/                   # Cross-cutting concepts (tool-agnostic)
                 ├── workload-design.md        # Concurrency models, load profiles, Little's Law
                 ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
@@ -196,16 +196,16 @@ perf-skills/                              # Repository root
 
 `SKILL.md` acts as the entry point and router. It contains:
 
-1. **Loading Priority Rules** — tells the AI which file(s) to load based on the user's question (never all at once).
-2. **Reference Map** — maps user intent to the right file.
-3. **Protocol Routing Table** — maps protocols (gRPC, GraphQL, etc.) to recommended tools and reference files.
-4. **Tool Selection Matrix** — helps recommend a tool when the user hasn't chosen one.
-5. **Key Principles** — the single source of truth for cross-cutting best practices (assertions, think time, parameterization, correlation).
+1. **Loading Priority Rules** - tells the AI which file(s) to load based on the user's question (never all at once).
+2. **Reference Map** - maps user intent to the right file.
+3. **Protocol Routing Table** - maps protocols (gRPC, GraphQL, etc.) to recommended tools and reference files.
+4. **Tool Selection Matrix** - helps recommend a tool when the user hasn't chosen one.
+5. **Key Principles** - the single source of truth for cross-cutting best practices (assertions, think time, parameterization, correlation).
 
 ### Design Principles
 
 - **Token-efficient**: Tool files contain only tool-specific syntax. Cross-cutting concepts live in topic files. No duplication.
-- **Selective loading**: The AI loads 1–2 files per question, not the entire knowledge base.
+- **Selective loading**: The AI loads 1-2 files per question, not the entire knowledge base.
 - **Single source of truth**: Each concept is defined in exactly one place. Tool files cross-reference topic files for shared concepts.
 - **Opinionated**: The skill prescribes best practices, not just documentation. It tells you what to do, not just what's possible.
 
@@ -216,7 +216,7 @@ perf-skills/                              # Repository root
 | "Help me write a k6 load test for our REST API" | `k6.md` |
 | "How should I design the workload for our e-commerce app?" | `workload-design.md` |
 | "Set up JMeter in our GitHub Actions pipeline" | `test-execution.md` + `jmeter.md` |
-| "Our p95 latency is spiking at 500 VUs — how do I debug?" | `results-analysis.md` + `observability.md` |
+| "Our p95 latency is spiking at 500 VUs - how do I debug?" | `results-analysis.md` + `observability.md` |
 | "How do I load test a gRPC service?" | `protocol-testing.md` + `k6.md` |
 | "What tool should I use? We're a Python team." | `SKILL.md` (Tool Selection Matrix) |
 | "Test our Kafka consumer throughput" | `protocol-testing.md` |
@@ -227,10 +227,10 @@ perf-skills/                              # Repository root
 
 To add or update content:
 
-1. **Tool-specific content** goes in `references/tools/<tool>.md` — syntax, config, tool-unique tips only.
-2. **Cross-cutting concepts** go in `references/topics/<topic>.md` — patterns that apply across tools.
-3. **Never duplicate** — if a concept exists in a topic file, tool files should cross-reference it, not restate it.
-4. **Update SKILL.md** if you add a new file — add it to the Reference Map and Protocol Routing Table if applicable.
+1. **Tool-specific content** goes in `references/tools/<tool>.md` - syntax, config, tool-unique tips only.
+2. **Cross-cutting concepts** go in `references/topics/<topic>.md` - patterns that apply across tools.
+3. **Never duplicate** - if a concept exists in a topic file, tool files should cross-reference it, not restate it.
+4. **Update SKILL.md** if you add a new file - add it to the Reference Map and Protocol Routing Table if applicable.
 5. **Add a version indicator** (`> Targets: ...`) to new tool files.
 
 ## License
