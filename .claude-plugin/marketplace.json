@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Expert AI skill for performance testing — covers the full lifecycle using JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and OctoPerf.",
-    "version": "1.0.2"
+    "version": "1.0.3"
   },
   "plugins": [
     {
       "name": "perf",
       "source": "./",
       "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 7 tools and 10 topic areas.",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "NaveenKumar Namachivayam",
         "email": "contact@qainsights.com"
