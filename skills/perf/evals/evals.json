@@ -1,0 +1,149 @@
+{
+  "skill_name": "perf",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm using k6 checks to validate all my API responses. My CI pipeline shows all tests passing but users are complaining about slowness. What am I missing?",
+      "expected_output": "Identifies that checks do not fail the test run — thresholds are required for CI enforcement. Provides a concrete threshold example.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "checks-vs-thresholds-distinction",
+          "text": "Explicitly states that checks do NOT produce a non-zero exit code and cannot fail a CI pipeline"
+        },
+        {
+          "id": "thresholds-required",
+          "text": "States that thresholds in options.thresholds are required to enforce SLA in CI"
+        },
+        {
+          "id": "concrete-example",
+          "text": "Provides a concrete threshold code example, not just an explanation"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to load test a Kafka consumer that processes order events. What tool should I use and how do I get started?",
+      "expected_output": "Recommends xk6-kafka with the custom build command, or JMeter with Kafka plugin. Does not suggest a generic HTTP tool.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "correct-tool",
+          "text": "Recommends xk6-kafka or JMeter Kafka plugin — not a generic HTTP tool like plain k6 or Gatling HTTP"
+        },
+        {
+          "id": "xk6-build-command",
+          "text": "Includes the xk6 custom build command or JMeter plugin installation reference"
+        },
+        {
+          "id": "not-http",
+          "text": "Does not suggest testing Kafka via HTTP endpoints as a primary approach"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My JMeter test runs fine locally but JMeter crashes after 20 minutes in CI with an OutOfMemoryError. The test plan works on my machine with 50 threads.",
+      "expected_output": "Identifies listeners enabled in non-GUI run as the primary cause. Recommends disabling listeners and using -l flag for output.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "listener-root-cause",
+          "text": "Identifies enabled listeners (View Results Tree, Aggregate Report etc.) in non-GUI runs as the memory leak cause"
+        },
+        {
+          "id": "disable-listeners",
+          "text": "Recommends disabling listeners in the test plan for CI runs"
+        },
+        {
+          "id": "jtl-output",
+          "text": "Mentions using -l results.jtl flag as the correct output method for non-GUI runs"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're migrating our load tests from LoadRunner to k6. What does a VuGen Action map to in k6, and what about think time and correlation?",
+      "expected_output": "Maps VuGen Action → k6 default() function. Maps lr_think_time() → sleep(). Maps web_reg_save_param → res.json() or regex extraction.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "action-mapping",
+          "text": "Maps VuGen Action() specifically to k6 default() function"
+        },
+        {
+          "id": "think-time-mapping",
+          "text": "Maps lr_think_time() to k6 sleep()"
+        },
+        {
+          "id": "correlation-mapping",
+          "text": "Maps web_reg_save_param or LoadRunner correlation to k6 res.json() or regex extraction"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I'm writing a k6 script for an e-commerce checkout flow: login → browse → add to cart → checkout. Should I use shared-iterations or per-vu-iterations?",
+      "expected_output": "Recommends per-vu-iterations. Explains that shared-iterations causes VUs to skip steps in multi-step journeys, producing incorrect metrics.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "correct-executor",
+          "text": "Recommends per-vu-iterations for the user journey"
+        },
+        {
+          "id": "shared-iterations-problem",
+          "text": "Explains why shared-iterations is wrong for journeys — VUs race for iterations and may skip steps"
+        },
+        {
+          "id": "not-ambiguous",
+          "text": "Gives a clear recommendation, not a 'it depends' answer without a conclusion"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "My Locust test shows zero failures even though I can see 404 and 500 errors in the server logs during the test run.",
+      "expected_output": "Identifies missing catch_response=True as the cause. Without it, Locust counts all HTTP responses as success regardless of status code.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "catch-response-cause",
+          "text": "Identifies missing catch_response=True as the root cause"
+        },
+        {
+          "id": "failure-call",
+          "text": "Explains that r.failure() must be called explicitly inside the catch_response context manager"
+        },
+        {
+          "id": "code-example",
+          "text": "Provides a corrected code snippet using catch_response=True"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "What are good starting threshold values for a REST API and a checkout payment endpoint in k6?",
+      "expected_output": "Provides differentiated thresholds: REST API p95<500ms, checkout p95<1000ms with stricter error rate. Includes both http_req_duration and http_req_waiting. Notes these are baselines to adjust.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "differentiated-thresholds",
+          "text": "Gives different threshold values for REST API vs checkout — not the same value for both"
+        },
+        {
+          "id": "http-req-waiting",
+          "text": "Includes http_req_waiting as a separate threshold alongside http_req_duration"
+        },
+        {
+          "id": "checks-threshold",
+          "text": "Includes checks: rate>0.99 threshold"
+        },
+        {
+          "id": "adjust-caveat",
+          "text": "Notes that values are baselines and should be adjusted to actual SLA requirements"
+        }
+      ]
+    }
+  ]
+}

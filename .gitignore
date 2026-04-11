@@ -1,2 +1,8 @@
 .DS_Store
 .claude/settings.local.json
+
+# Eval run outputs — ephemeral, can be large
+perf-skills-workspace/
+
+# Personal review notes
+feedback.json
