@@ -1,64 +1,88 @@
-# perf-skills
+# ⚡ Performance Testing Skills (`perf-skills`)
 
-> *"The more you sweat in training, the less you bleed in battle."* - Richard Marcinko
->
-> The more relevant skills your AI loads during development, the fewer fires you fight in production.
+> **Turn your AI assistant into a senior performance engineer.** An opinionated, token-optimized knowledge base for planning, scripting, executing, and analyzing load tests across any major tool.
 
-## What Is This?
+> *"The more you sweat in training, the less you bleed in battle."* - Richard Marcinko  
+> *"The more relevant skills your AI loads during development, the fewer fires you fight in production."*
 
-`perf-skills` is a structured knowledge base that gives AI coding assistants deep, opinionated expertise in performance testing. It works with any AI tool that supports custom instructions, rules, or skill files - helping you plan, script, execute, and analyze load tests using any major tool.
+---
 
-### Supported Tools
+## 📖 Table of Contents
 
-| Open Source | Commercial |
-|---|---|
-| Apache JMeter | NeoLoad (Tricentis) |
-| k6 (Grafana Labs) | LoadRunner (OpenText) |
-| Gatling | OctoPerf (SaaS) |
-| Locust | |
+- [🔍 What is perf-skills?](#-what-is-perf-skills)
+- [📦 Supported Tools & Protocols](#-supported-tools--protocols)
+- [⛓️ Dynamic Value Correlation](#️-dynamic-value-correlation)
+- [🛠️ Compatible AI Assistants](#️-compatible-ai-assistants)
+- [🚀 Installation & Setup](#-installation--setup)
+- [📂 File Structure & Routing](#-file-structure--routing)
+- [💡 How the Skill Works](#-how-the-skill-works)
+- [🤝 Contributing & License](#-contributing--license)
 
-### Topics Covered
+---
 
-- **Workload design** - concurrency models, Little's Law, transaction mix, SLA targets
-- **Test data** - parameterization, CSV feeds, synthetic data, data isolation
-- **Script generation** - correlation, assertions, error handling, session management
-- **Test execution** - local, distributed, CI/CD pipelines, cloud execution
-- **Results analysis** - percentiles, bottleneck identification, trend comparison, reporting
-- **Observability** - APM integration, Prometheus/Grafana, distributed tracing, log correlation
-- **Production testing** - canary, shadow traffic, chaos engineering, safety controls
-- **Protocol testing** - gRPC, GraphQL, WebSocket/SSE, Kafka/message queues
-- **Database testing** - JDBC load testing, connection pools, query concurrency, replication lag
-- **Modern architectures** - microservices, Kubernetes (HPA, service mesh), serverless (cold starts), frontend (Core Web Vitals)
+## 🔍 What is perf-skills?
 
-## Compatible AI Coding Assistants
+`perf-skills` is a highly structured knowledge base designed specifically for AI coding assistants (like Claude, Cursor, Windsurf, etc.). It injects deep, expert-level performance testing context on-demand, allowing your AI to generate correct scripts, follow best practices, and debug bottlenecks without bloating its context window.
 
-| Tool | Integration Method | Setup |
-|---|---|---|
-| **Windsurf (Cascade)** | Skills | Copy to skills directory - auto-triggers on perf questions |
-| **Cursor** | Rules / Docs | Add as project rules or index via `@Docs` |
-| **Claude Code** | CLAUDE.md / Custom instructions | Reference files in `CLAUDE.md` or feed as context |
-| **Cline** | Custom instructions / `.clinerules` | Add to `.clinerules` or workspace instructions |
-| **Roo Code** | Custom instructions / Rules | Add as workspace rules or custom instructions |
-| **Aider** | Conventions / Chat context | Add to `.aider.conf.yml` conventions or `/read` files |
-| **OpenCode** | Custom instructions | Add to project-level instructions |
-| **Antigravity** | Context files | Add as context / knowledge files |
-| **Pochi** | Custom instructions | Reference files in project instructions |
-| **GitHub Copilot** | Custom instructions / `.github/copilot-instructions.md` | Reference in repo-level instructions |
+---
 
-## Installation
+## 📦 Supported Tools & Protocols
+
+| Category | Supported Technologies |
+| :--- | :--- |
+| **Open Source** | Apache JMeter, k6 (Grafana Labs), Gatling, Locust |
+| **Commercial/SaaS** | NeoLoad (Tricentis), LoadRunner (OpenText), OctoPerf |
+| **Protocols** | HTTP/REST, gRPC, GraphQL, WebSocket, SSE, JDBC, SOAP, Kafka/MQ, Citrix, SAP |
+
+---
+
+## ⛓️ Dynamic Value Correlation
+
+A major highlight of this library is the **Dynamic Value Correlation** engine ([correlation.md](skills/perf/references/topics/correlation.md)). Correlation is often the most fragile part of performance scripting; `perf-skills` equips your AI with robust strategies to handle it flawlessly:
+
+- **The Correlation Workflow**: Standardizes identifying, extracting, injecting, and verifying dynamic tokens.
+- **Advanced Scanning**: Strategies for Next.js/React SSR hydration payloads (`__NEXT_DATA__`), SPA client-side token retrieval, runtime hooking, and Swagger contract mapping.
+- **Robust vs. Brittle Regex**: Guides your AI to write expressions that don't break on minor HTML structure modifications.
+- **Tech Stack Rules**: Pre-defined extraction rules for enterprise environments:
+  - **ASP.NET**: ViewState, RequestVerificationToken, EventValidation.
+  - **Java**: JSF ViewState, Spring Security `_csrf`, JSESSIONID.
+  - **SAP & Oracle**: NetWeaver `sap-contextid`, ADF `_afrLoop`.
+  - **OAuth 2.0 / SAML**: SAMLResponse, code, state tokens.
+  - **Modern SSR/SPA**: Hydration states, Laravel `_token`, Django `csrfmiddlewaretoken`, Rails `authenticity_token`.
+- **Diagnostic Playbook**: Step-by-step troubleshooting for URL-encoding, base64 url-safe transforms, JSON-escaping, and thread safety.
+
+---
+
+## 🛠️ Compatible AI Assistants
+
+`perf-skills` works seamlessly with any modern AI development tool:
+
+| AI Assistant | Integration Method |
+| :--- | :--- |
+| **Claude Code** | Native Plugin or `CLAUDE.md` context referencing |
+| **Windsurf (Cascade)** | Local Skill configuration |
+| **Cursor** | Custom rules `.cursor/rules/` or index via `@Docs` |
+| **Cline / Roo Code** | Workspace instructions / custom rules |
+| **Aider** | Conventions file or `/read` context loading |
+| **GitHub Copilot** | Repository-level custom instructions |
+| **Antigravity / Pochi** | Context files / instruction references |
+
+---
+
+## 🚀 Installation & Setup
 
 ### Claude Code Plugin (Recommended)
 
-**Add the marketplace and install:**
+To install as a Claude Code plugin, run:
 ```bash
 /plugin marketplace add QAInsights/perf-skills
 /plugin install perf@qainsights
 /reload-plugins
 ```
 
-After install, the `/perf` skill is available and auto-activates on performance testing questions.
+Once installed, the `/perf` skill will be available and automatically load when you ask performance-related questions.
 
-**Update to latest version:**
+To update to the latest version:
 ```bash
 /plugin marketplace update
 /plugin uninstall perf
@@ -66,100 +90,93 @@ After install, the `/perf` skill is available and auto-activates on performance 
 /reload-plugins
 ```
 
-### Install as Skills (npx)
+---
 
+### Install as local Skills (npx)
+
+If you are using a tool that supports `npx skills`, add it directly:
 ```bash
 npx skills add QAInsights/perf-skills
 ```
 
-### Install as Skills (Manual)
+---
 
-```bash
-# Clone and copy to Claude skills directory
-git clone https://github.com/QAInsights/perf-skills.git
-cp -r perf-skills/skills/perf ~/.claude/skills/
-```
+### Setup for Other Editors
 
-### Windsurf (Skills)
+<details>
+<summary><b>🌊 Windsurf (Cascade)</b></summary>
+<br>
 
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory: `cp -r perf-skills/skills/perf ~/.windsurf/skills/`
-3. The skill auto-triggers when you ask about performance testing, load testing, or any supported tool.
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/QAInsights/perf-skills.git
+   ```
+2. Copy the skill directory:
+   ```bash
+   cp -r perf-skills/skills/perf ~/.windsurf/skills/
+   ```
+The skill will auto-trigger when you ask about performance testing, load testing, or any supported tool.
+</details>
 
-### Cursor (Rules / Docs)
+<details>
+<summary><b>🎯 Cursor</b></summary>
+<br>
 
-**Option A - Project Rules:**
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Create `.cursor/rules/perf.mdc` in your project root.
-3. Copy content from `perf-skills/skills/perf/SKILL.md` into the rule file.
+**Option A (Project Rules):**
+1. Copy [SKILL.md](skills/perf/SKILL.md) content into a rule file: `.cursor/rules/perf.mdc`.
+2. Configure rules to trigger on file paths matching performance scripts or performance-related prompts.
 
-**Option B - @Docs indexing:**
-1. Clone the repository into your project or a known location.
-2. Open Cursor Settings → Features → Docs.
-3. Add the `perf-skills/skills/perf/` directory as a doc source.
-4. Reference with `@Docs perf` in chat.
+**Option B (@Docs indexing):**
+1. Open Cursor Settings → Features → Docs.
+2. Add the path to `skills/perf/` directory as a doc source.
+3. Reference with `@Docs perf` in your prompts.
+</details>
 
-### Claude Code (CLAUDE.md)
+<details>
+<summary><b>🤖 Claude Code (CLAUDE.md)</b></summary>
+<br>
 
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
-3. In your `CLAUDE.md`, add:
-```markdown
-For performance testing questions, read `perf/SKILL.md` for routing,
-then load the relevant reference file(s) from `perf/references/`.
-```
+1. Copy the `skills/perf` directory into your project root:
+   ```bash
+   cp -r perf-skills/skills/perf ./perf
+   ```
+2. In your `CLAUDE.md`, add:
+   ```markdown
+   For performance testing questions, read `perf/SKILL.md` for routing, then load the relevant reference files from `perf/references/`.
+   ```
+</details>
 
-### Cline / Roo Code
+<details>
+<summary><b> Cline / Roo Code</b></summary>
+<br>
 
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
-3. Add to your custom instructions or `.clinerules`:
-```
-For performance testing guidance, consult the perf knowledge base.
-Start with perf/SKILL.md for routing to the correct reference file.
-```
+1. Copy the `skills/perf` directory into your project root.
+2. In your `.clinerules` or custom instructions, append:
+   ```text
+   For performance testing guidance, consult the perf knowledge base starting at perf/SKILL.md.
+   ```
+</details>
 
-### Aider
+<details>
+<summary><b>⚓ Aider</b></summary>
+<br>
 
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
-3. Use `/read perf/SKILL.md` to load the routing file.
-4. Then `/read` the specific reference file(s) relevant to your question.
+1. Copy the `skills/perf` directory into your project root.
+2. Tell Aider to read the entrypoint:
+   ```bash
+   /read perf/SKILL.md
+   ```
+3. Ask your question. Aider will load the corresponding tool/topic files from `perf/references/`.
+</details>
 
-### GitHub Copilot
+---
 
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
-3. In `.github/copilot-instructions.md`, add:
-```markdown
-For performance testing questions, reference the perf knowledge base.
-Start with perf/SKILL.md, then load relevant files from perf/references/.
-```
+## 📂 File Structure & Routing
 
-### OpenCode / Antigravity / Pochi
+Here is how the knowledge base is organized. The entry point [SKILL.md](skills/perf/SKILL.md) routes queries to specific reference guides to keep prompt sizes minimal.
 
-1. Clone the repository: `git clone https://github.com/QAInsights/perf-skills.git`
-2. Copy the skill directory into your project: `cp -r perf-skills/skills/perf ./perf`
-3. Add to your project-level custom instructions or context files:
-```
-For performance testing guidance, consult the perf knowledge base.
-Start with perf/SKILL.md for routing to the correct reference file.
-```
-
-### Any Other AI Tool
-
-The skill is plain markdown files. Any AI tool that can read files or accept custom instructions can use it:
-1. Point the tool to `SKILL.md` as the entry point.
-2. Let the Reference Map in `SKILL.md` guide which file(s) to load.
-
-### As a Standalone Knowledge Base
-
-Browse the markdown files directly - they're self-contained references useful even without an AI assistant.
-
-## File Structure
-
-```
-perf-skills/                              # Repository root
+```text
+perf-skills/
 ├── .claude-plugin/
 │   ├── marketplace.json                  # Claude Code marketplace catalog
 │   └── plugin.json                       # Claude Code plugin manifest
@@ -167,73 +184,59 @@ perf-skills/                              # Repository root
 ├── LICENSE.md
 └── skills/
     └── perf/                             # Skill module
-        ├── SKILL.md                      # Entry point - tool selection, lifecycle, key principles
+        ├── SKILL.md                      # [Entry Point] Routing, Key Principles
         └── references/
-            ├── tools/                    # Tool-specific syntax and configuration
-            │   ├── jmeter.md             # JMeter 5.6+ - samplers, extractors, plugins, Groovy
-            │   ├── k6.md                 # k6 v0.50+ - executors, checks, thresholds, modules
-            │   ├── gatling.md            # Gatling 3.10+ - Scala/Java DSL, feeders, injection
-            │   ├── locust.md             # Locust 2.20+ - Python scripts, events, FastHttpUser
-            │   ├── neoload.md            # NeoLoad - GUI workflow, CLI, API execution
-            │   ├── loadrunner.md         # LoadRunner - VuGen, protocols, Controller scenarios
-            │   └── octoperf.md           # OctoPerf - JMeter-based SaaS, HAR import, cloud
-            └── topics/                   # Cross-cutting concepts (tool-agnostic)
-                ├── workload-design.md        # Concurrency models, load profiles, Little's Law
-                ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
-                ├── script-generation.md      # Assertions, error handling, naming, structure
-                ├── correlation.md            # Dynamic values, extractors, regex, tool mappings
-                ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
-                ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
-                ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
-                ├── production-testing.md     # Canary, shadow traffic, chaos, safety controls
-                ├── protocol-testing.md       # gRPC, GraphQL, WebSocket, Kafka/message queues
-                ├── database-testing.md       # JDBC, connection pools, slow queries, deadlocks
-                └── modern-architectures.md   # Microservices, K8s, serverless, browser/Web Vitals
+            ├── tools/                    # Tool-specific syntax & configs
+            │   ├── jmeter.md             # Apache JMeter (Groovy, Samplers, Extractors)
+            │   ├── k6.md                 # k6 JS/TS scripting, thresholds, VU options
+            │   ├── gatling.md            # Gatling Scala/Java DSL & feeders
+            │   ├── locust.md             # Locust Python scripting & FastHttpUser
+            │   ├── neoload.md            # NeoLoad GUI configs & API execution
+            │   ├── loadrunner.md         # LoadRunner VuGen C scripting
+            │   └── octoperf.md           # OctoPerf JMeter-based cloud execution
+            └── topics/                   # Cross-cutting topics (Tool-agnostic)
+                ├── workload-design.md    # Little's Law, concurrency, pacing
+                ├── test-data.md          # Parameterization, CSV, data isolation
+                ├── script-generation.md  # Naming conventions, error handling
+                ├── correlation.md        # Dynamic values, Regex, JSONPath (Highlighted!)
+                ├── test-execution.md     # Distributed load, CI/CD pipelines
+                ├── results-analysis.md   # Latency percentiles, bottleneck triage
+                ├── observability.md      # Grafana, APM integration, VM profiling
+                ├── production-testing.md # Chaos engineering, canary safety controls
+                ├── protocol-testing.md   # gRPC, GraphQL, WebSockets, Kafka
+                ├── database-testing.md   # JDBC, pools, deadlocks, slow queries
+                └── modern-architectures.md # K8s scaling, HPA, Frontend CWV
 ```
 
-## How the Skill Works
+---
 
-### Routing Logic
+## 💡 How the Skill Works
 
-`SKILL.md` acts as the entry point and router. It contains:
+To avoid hitting context window limits, the skill operates on a **selective loading** design:
 
-1. **Loading Priority Rules** - tells the AI which file(s) to load based on the user's question (never all at once).
-2. **Reference Map** - maps user intent to the right file.
-3. **Protocol Routing Table** - maps protocols (gRPC, GraphQL, etc.) to recommended tools and reference files.
-4. **Tool Selection Matrix** - helps recommend a tool when the user hasn't chosen one.
-5. **Key Principles** - the single source of truth for cross-cutting best practices (assertions, think time, parameterization, correlation).
+1. **Routing**: [SKILL.md](skills/perf/SKILL.md) is always read first.
+2. **Selective Context**: Based on the query, only the exact tool file (e.g., `k6.md`) and the relevant topic file (e.g., `correlation.md`) are loaded.
+3. **Consistency**: Global rules (like realistic think times and assertions) are enforced uniformly across all tool files by anchoring them in [SKILL.md](skills/perf/SKILL.md).
 
-### Design Principles
+### ❓ Example Queries and Loaded Files
 
-- **Token-efficient**: Tool files contain only tool-specific syntax. Cross-cutting concepts live in topic files. No duplication.
-- **Selective loading**: The AI loads 1-2 files per question, not the entire knowledge base.
-- **Single source of truth**: Each concept is defined in exactly one place. Tool files cross-reference topic files for shared concepts.
-- **Opinionated**: The skill prescribes best practices, not just documentation. It tells you what to do, not just what's possible.
+| Query | Files Loaded |
+| :--- | :--- |
+| *"Help me write a k6 load test for our REST API"* | `k6.md` |
+| *"How should I correlate a dynamic JSESSIONID in JMeter?"* | `jmeter.md` + `correlation.md` |
+| *"Set up a distributed Locust execution in GitLab CI"* | `locust.md` + `test-execution.md` |
+| *"Our p95 latency spikes during database writes, how do we fix?"* | `database-testing.md` + `results-analysis.md` |
 
-## Example Questions This Skill Handles
+---
 
-| Question | Files Loaded |
-|---|---|
-| "Help me write a k6 load test for our REST API" | `k6.md` |
-| "How should I design the workload for our e-commerce app?" | `workload-design.md` |
-| "Set up JMeter in our GitHub Actions pipeline" | `test-execution.md` + `jmeter.md` |
-| "Our p95 latency is spiking at 500 VUs - how do I debug?" | `results-analysis.md` + `observability.md` |
-| "How do I load test a gRPC service?" | `protocol-testing.md` + `k6.md` |
-| "What tool should I use? We're a Python team." | `SKILL.md` (Tool Selection Matrix) |
-| "Test our Kafka consumer throughput" | `protocol-testing.md` |
-| "Validate our K8s HPA scales correctly under load" | `modern-architectures.md` |
-| "Load test our PostgreSQL connection pool" | `database-testing.md` + `jmeter.md` |
+## 🤝 Contributing
 
-## Contributing
+We welcome contributions to expand the knowledge base:
+1. **Tool-specific syntax** belongs in `references/tools/`.
+2. **Generic concepts** belong in `references/topics/`.
+3. **Keep it DRY**: Reference topic files from tool files instead of duplicating.
+4. **Update the Index**: Remember to update the Reference Map in [SKILL.md](skills/perf/SKILL.md) when adding files.
 
-To add or update content:
+## 📄 License
 
-1. **Tool-specific content** goes in `references/tools/<tool>.md` - syntax, config, tool-unique tips only.
-2. **Cross-cutting concepts** go in `references/topics/<topic>.md` - patterns that apply across tools.
-3. **Never duplicate** - if a concept exists in a topic file, tool files should cross-reference it, not restate it.
-4. **Update SKILL.md** if you add a new file - add it to the Reference Map and Protocol Routing Table if applicable.
-5. **Add a version indicator** (`> Targets: ...`) to new tool files.
-
-## License
-
-See repository license.
+This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
