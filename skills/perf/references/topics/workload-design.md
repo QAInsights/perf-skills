@@ -1,6 +1,6 @@
 # Workload Design
 
-Workload design is the most impactful phase of performance testing. A poorly designed workload produces results that are irrelevant to production behavior — no matter how well-scripted the test is.
+Workload design is the most impactful phase of performance testing. A poorly designed workload produces results that are irrelevant to production behavior - no matter how well-scripted the test is.
 
 ---
 
@@ -153,7 +153,7 @@ Every test must have explicit, measurable SLA targets before execution. Negotiat
 | Max response time | < 5,000ms |
 
 **Why percentiles matter more than averages:**
-Average response time hides outliers. p95 tells you what 95% of users experience — averages can look fine while 10% of users timeout.
+Average response time hides outliers. p95 tells you what 95% of users experience - averages can look fine while 10% of users timeout.
 
 ---
 
@@ -185,7 +185,7 @@ Pacing is used when you want `N` iterations per hour per VU regardless of respon
 
 ## Ramp-Up Strategy
 
-Bad ramp-up causes a "thundering herd" — thousands of VUs hitting the server simultaneously, warming up connection pools, JVM, and caches all at once. This is unrealistic and produces misleading results.
+Bad ramp-up causes a "thundering herd" - thousands of VUs hitting the server simultaneously, warming up connection pools, JVM, and caches all at once. This is unrealistic and produces misleading results.
 
 **Good ramp-up:**
 - Rule of thumb: Ramp to 100% over at least 5–10 minutes for large tests.

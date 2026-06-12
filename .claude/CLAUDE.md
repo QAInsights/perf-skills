@@ -5,7 +5,7 @@
 - **Skill name:** `perf`
 - **Skill path:** `skills/perf/SKILL.md`
 - **Evals path:** `skills/perf/evals/evals.json`
-- **Workspace:** `perf-skills-workspace/` *(gitignored — outputs only)*
+- **Workspace:** `perf-skills-workspace/` *(gitignored - outputs only)*
 
 ---
 
@@ -21,8 +21,8 @@ Save results to perf-skills-workspace/iteration-1/
 ```
 
 Claude will:
-1. Spawn a **with-skill** subagent — reads `SKILL.md`, then executes the prompt
-2. Spawn a **without-skill** baseline subagent — same prompt, no skill context
+1. Spawn a **with-skill** subagent - reads `SKILL.md`, then executes the prompt
+2. Spawn a **without-skill** baseline subagent - same prompt, no skill context
 3. Save outputs under `perf-skills-workspace/iteration-1/eval-{id}/`
 4. Grade each assertion and write `eval_metadata.json` + `timing.json` per eval
 5. Aggregate results into `perf-skills-workspace/iteration-1/benchmark.json`
@@ -124,16 +124,16 @@ python -m scripts.run_loop \
 ## Assertion Writing Rules
 
 - State in present tense: `"Output contains..."`, `"Response includes..."`
-- Must be objectively verifiable — avoid subjective grades like "response is good"
+- Must be objectively verifiable - avoid subjective grades like "response is good"
 - 2–4 assertions per eval is the target range
-- Use unique `id` strings — they serve as the pass/fail key in `eval_metadata.json`
+- Use unique `id` strings - they serve as the pass/fail key in `eval_metadata.json`
 
 ---
 
 ## What to Commit vs. Gitignore
 
 ```gitignore
-perf-skills-workspace/    # eval run outputs — large, ephemeral
+perf-skills-workspace/    # eval run outputs - large, ephemeral
 feedback.json             # personal review notes
 ```
 

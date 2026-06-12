@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "I'm using k6 checks to validate all my API responses. My CI pipeline shows all tests passing but users are complaining about slowness. What am I missing?",
-      "expected_output": "Identifies that checks do not fail the test run — thresholds are required for CI enforcement. Provides a concrete threshold example.",
+      "expected_output": "Identifies that checks do not fail the test run - thresholds are required for CI enforcement. Provides a concrete threshold example.",
       "files": [],
       "assertions": [
         {
@@ -29,7 +29,7 @@
       "assertions": [
         {
           "id": "correct-tool",
-          "text": "Recommends xk6-kafka or JMeter Kafka plugin — not a generic HTTP tool like plain k6 or Gatling HTTP"
+          "text": "Recommends xk6-kafka or JMeter Kafka plugin - not a generic HTTP tool like plain k6 or Gatling HTTP"
         },
         {
           "id": "xk6-build-command",
@@ -93,7 +93,7 @@
         },
         {
           "id": "shared-iterations-problem",
-          "text": "Explains why shared-iterations is wrong for journeys — VUs race for iterations and may skip steps"
+          "text": "Explains why shared-iterations is wrong for journeys - VUs race for iterations and may skip steps"
         },
         {
           "id": "not-ambiguous",
@@ -129,7 +129,7 @@
       "assertions": [
         {
           "id": "differentiated-thresholds",
-          "text": "Gives different threshold values for REST API vs checkout — not the same value for both"
+          "text": "Gives different threshold values for REST API vs checkout - not the same value for both"
         },
         {
           "id": "http-req-waiting",

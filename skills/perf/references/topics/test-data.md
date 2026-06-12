@@ -6,10 +6,10 @@ Test data is a first-class concern in performance testing. Bad data causes false
 
 ## Why Test Data Matters
 
-- **Authentication tokens** expire — hardcoded tokens fail within minutes.
+- **Authentication tokens** expire - hardcoded tokens fail within minutes.
 - **Unique constraints** (email, username, order number) cause failures at concurrency > 1.
 - **State-dependent flows** (checkout, approval) require data in the right state before the test.
-- **Cache effects** — if 1000 VUs all hit the same product ID, cache hit rates are unrealistically high; spread data across IDs.
+- **Cache effects** - if 1000 VUs all hit the same product ID, cache hit rates are unrealistically high; spread data across IDs.
 
 ---
 
@@ -17,7 +17,7 @@ Test data is a first-class concern in performance testing. Bad data causes false
 
 | Test Type | Data Strategy |
 |---|---|
-| Smoke (1 VU) | Minimal — single known-good user/record |
+| Smoke (1 VU) | Minimal - single known-good user/record |
 | Load (realistic VUs) | Pool of pre-created users/records matching production volume |
 | Stress (pushing limits) | Large pool; no uniqueness conflicts |
 | Soak (hours) | Rotating/recyclable data; handle state cleanup |
@@ -78,7 +78,7 @@ TO '/tmp/users.csv' CSV HEADER;
 Best for: data that must be in a specific state per VU (unique cart, session, transaction).
 
 ```javascript
-// k6 setup() — run before VUs start
+// k6 setup() - run before VUs start
 export function setup() {
   const orders = [];
   for (let i = 0; i < 200; i++) {
@@ -103,7 +103,7 @@ def on_start(self):
 
 ### Strategy 4: Faker / Synthetic Data Generation
 
-Best for: registration flows, profile creation, form submission — where each VU needs unique PII-like data.
+Best for: registration flows, profile creation, form submission - where each VU needs unique PII-like data.
 
 ```python
 # Python (Locust or data generation script)
@@ -169,7 +169,7 @@ Each VU/iteration picks the next row. Ensures even distribution.
 Better for cache-busting tests where you want realistic cache miss rates.
 
 ### Unique-Per-VU
-Each VU gets a dedicated row — critical for state-dependent flows (user owns specific order). Use VU index (`__VU` in k6, `${__threadNum}` in JMeter) to deterministically select a row.
+Each VU gets a dedicated row - critical for state-dependent flows (user owns specific order). Use VU index (`__VU` in k6, `${__threadNum}` in JMeter) to deterministically select a row.
 
 ```javascript
 // k6: VU-indexed data

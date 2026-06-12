@@ -116,26 +116,26 @@ Login → sessionId → Browse → productId → Add to Cart → cartId → Chec
   - Response headers from XHR/fetch API calls (not the initial HTML page load)
   - `localStorage` / `sessionStorage` writes from initialization scripts
 * **Extraction approach**: Regex on the raw response body targeting the JS object (e.g., `__NEXT_DATA__\s*=\s*({.+?})\s*</script>`), then parse the extracted JSON with a JSONPath extractor as a second step.
-* **Pitfall**: The initial page HTML may not contain the token at all — it arrives in a subsequent XHR call. Record network traffic at the API level, not just page loads.
+* **Pitfall**: The initial page HTML may not contain the token at all - it arrives in a subsequent XHR call. Record network traffic at the API level, not just page loads.
 
 ---
 
 ## 3. Extractor Selection Guide
 
-**Golden rule: if a structured extractor exists for the response format, use it instead of regex.** JSONPath for JSON, CSS Selectors for HTML, Header Extractor for headers. Regex should be the last resort — used only for unstructured text, mixed formats, or inline JavaScript.
+**Golden rule: if a structured extractor exists for the response format, use it instead of regex.** JSONPath for JSON, CSS Selectors for HTML, Header Extractor for headers. Regex should be the last resort - used only for unstructured text, mixed formats, or inline JavaScript.
 
 | Response Format | Extractor Type | Best For | Brittle/Fragile For |
 | :--- | :--- | :--- | :--- |
 | **JSON** | **JSONPath / jq** | REST APIs, microservices, token payloads | Structurally fluid JSON (e.g., dynamic key names) |
 | **HTML / XML** | **CSS Selectors / XPath** | Web pages, forms, SOAP, legacy XML APIs | Brittle if using deep absolute paths (e.g., `/html/body/div[2]/div/form`) |
 | **HTTP Headers** | **Regex / Header Extractor** | `Location`, `Set-Cookie`, custom headers | Header order changes |
-| **GraphQL** | **JSONPath on `data` envelope** | `{"data":{...}}` responses | Deeply nested or aliased queries — use the alias name in the path, not positional indices |
+| **GraphQL** | **JSONPath on `data` envelope** | `{"data":{...}}` responses | Deeply nested or aliased queries - use the alias name in the path, not positional indices |
 | **Unstructured / Mixed** | **Regular Expression** | Quick captures, custom patterns | Overly broad matching, changing HTML structure |
 | **Plain Text** | **Boundary Extractor** | Delimited strings (e.g., `id="123"`) | When left/right boundaries are not unique |
 
 ### Cookie-Based Correlation
 
-Most tools provide automatic cookie management (JMeter's HTTP Cookie Manager, k6's cookie jar, Gatling's cookie store, Locust's `requests.Session`). **Rely on the cookie manager by default** — manual cookie extraction is only needed when:
+Most tools provide automatic cookie management (JMeter's HTTP Cookie Manager, k6's cookie jar, Gatling's cookie store, Locust's `requests.Session`). **Rely on the cookie manager by default** - manual cookie extraction is only needed when:
 
 * **Multi-domain SSO**: Cookies set on `auth.example.com` need to be forwarded to `app.example.com`. Cookie managers scope by domain and will not transfer automatically.
 * **SameSite / Secure flags**: Cookies with `SameSite=Strict` or `Secure` may not attach on cross-origin or non-HTTPS requests during testing.
@@ -288,13 +288,13 @@ When correlation fails, work through this checklist in order:
 
 | Symptom | Root Cause | Fix |
 | :--- | :--- | :--- |
-| Variable is empty / shows default value | Extractor did not match — wrong path, format changed, or extractor attached to wrong request | Inspect raw response body. Verify path against actual response. |
+| Variable is empty / shows default value | Extractor did not match - wrong path, format changed, or extractor attached to wrong request | Inspect raw response body. Verify path against actual response. |
 | Variable has a value, but it is wrong | Matched wrong occurrence (e.g., `Match No. 1` picked a different element) | Use more specific path/selector. Debug Sampler (JMeter) to see all candidates. |
-| Variable correct, request still fails | Injection target wrong — encoding mismatch, wrong header/field, Content-Type mismatch | Compare injected request against a successful manual request byte-for-byte. |
-| Works with 1 VU, fails with N VUs | Thread safety / scope issue — variable shared or overwritten across VUs | See Thread Safety section below. |
+| Variable correct, request still fails | Injection target wrong - encoding mismatch, wrong header/field, Content-Type mismatch | Compare injected request against a successful manual request byte-for-byte. |
+| Works with 1 VU, fails with N VUs | Thread safety / scope issue - variable shared or overwritten across VUs | See Thread Safety section below. |
 | Works first iteration, fails on second | Token is single-use (nonce) or expired. Needs re-extraction every iteration. | Move extraction inside the iteration loop. Verify token TTL. |
 | Works locally, fails distributed | Variable extracted on one node unavailable on another | Ensure extraction and injection happen within same node's request chain. |
-| Intermittent failures under load | Race condition — response arrives before prior extraction completes (async) | Add explicit waits / ordering. Check for HTTP/2 multiplexing reordering. |
+| Intermittent failures under load | Race condition - response arrives before prior extraction completes (async) | Add explicit waits / ordering. Check for HTTP/2 multiplexing reordering. |
 
 ### Thread Safety / VU Scope
 
@@ -302,8 +302,8 @@ Each tool scopes variables differently. Getting this wrong causes User A's token
 
 | Tool | Default Scope | Cross-VU Sharing Trap |
 | :--- | :--- | :--- |
-| **JMeter** | Thread-local (`vars`) | `__setProperty`/`props` is global — never use for session tokens. |
-| **k6** | VU-scoped (inside `default()`) | Module-level `let`/`var` outside `default()` is shared — keep state inside `default()`. |
+| **JMeter** | Thread-local (`vars`) | `__setProperty`/`props` is global - never use for session tokens. |
+| **k6** | VU-scoped (inside `default()`) | Module-level `let`/`var` outside `default()` is shared - keep state inside `default()`. |
 | **Gatling** | Session-scoped (per user) | `global` feeders with `.circular` can cause two users to get same row. |
 | **Locust** | Instance-scoped (`self.*`) | Module-level variables are shared across all User instances. |
 | **LoadRunner** | Vuser-scoped (`lr_save_string`) | Shared data tables with `Unique` allocation can exhaust rows. |
@@ -366,7 +366,7 @@ Many enterprise application stacks rely on standardized frameworks with pre-dete
 * **`SAMLResponse`**: XML payload representing SAML assertion. Encoded base64 in HTML form input: `input[name=SAMLResponse]`.
 
 ### Django
-* **`csrfmiddlewaretoken`**: Hidden form input. Use **CSS Selector**: `input[name=csrfmiddlewaretoken]`. Also sent as `csrftoken` cookie — verify the cookie manager handles it; if not, extract from the form.
+* **`csrfmiddlewaretoken`**: Hidden form input. Use **CSS Selector**: `input[name=csrfmiddlewaretoken]`. Also sent as `csrftoken` cookie - verify the cookie manager handles it; if not, extract from the form.
 
 ### Ruby on Rails
 * **`authenticity_token`**: Anti-CSRF token in hidden form inputs. Use **CSS Selector**: `input[name=authenticity_token]`. Also in `<meta name="csrf-token">` for AJAX requests.

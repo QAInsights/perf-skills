@@ -2,7 +2,7 @@
 
 > Targets: Locust 2.20+, Python 3.9+
 
-Locust is a Python-based, open-source load testing tool. Tests are plain Python code — no DSL, no XML. It supports distributed testing and has a built-in web UI.
+Locust is a Python-based, open-source load testing tool. Tests are plain Python code - no DSL, no XML. It supports distributed testing and has a built-in web UI.
 
 ---
 
@@ -108,16 +108,16 @@ from locust import events
 
 @events.test_start.add_listener
 def on_test_start(environment, **kwargs):
-    print("Test starting — seeding test data")
+    print("Test starting - seeding test data")
 
 @events.request.add_listener
 def on_request(request_type, name, response_time, response_length, exception, **kwargs):
     if exception:
-        print(f"FAILED: {name} — {exception}")
+        print(f"FAILED: {name} - {exception}")
 
 @events.test_stop.add_listener
 def on_test_stop(environment, **kwargs):
-    print("Test finished — cleaning up data")
+    print("Test finished - cleaning up data")
 ```
 
 ---
@@ -125,9 +125,9 @@ def on_test_stop(environment, **kwargs):
 ## Locust-Specific Tips
 
 - Always use `name=` parameter to group parameterized URLs (e.g., `/products/123` → `name="GET /products/{id}"`).
-- Use `catch_response=True` for custom validation — HTTP 200 with error body passes silently otherwise.
+- Use `catch_response=True` for custom validation - HTTP 200 with error body passes silently otherwise.
 - Use `FastHttpUser` instead of `HttpUser` for CPU-bound or high-throughput scenarios.
-- Use distributed mode above 500–1000 VUs — a single worker process saturates one CPU core.
+- Use distributed mode above 500–1000 VUs - a single worker process saturates one CPU core.
 
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
 > For CI/CD integration and distributed execution details, see `../topics/test-execution.md`.

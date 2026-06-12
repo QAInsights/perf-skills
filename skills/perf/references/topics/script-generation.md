@@ -1,6 +1,6 @@
 # Script Generation & Best Practices
 
-This reference covers how to write robust, realistic, and maintainable performance test scripts — regardless of tool. Apply these principles to JMeter, k6, Gatling, Locust, or any other tool.
+This reference covers how to write robust, realistic, and maintainable performance test scripts - regardless of tool. Apply these principles to JMeter, k6, Gatling, Locust, or any other tool.
 
 ---
 
@@ -55,7 +55,7 @@ Correlation is extracting a dynamic value from a response and using it in a subs
 ### Correlation debugging approach
 1. Run the script with 1 VU.
 2. Look for HTTP 4xx errors (especially 403 Forbidden, 422 Unprocessable Entity).
-3. Check the request body/headers — is a token missing or stale?
+3. Check the request body/headers - is a token missing or stale?
 4. Use the tool's debug output or proxy (Fiddler, Charles) to inspect live traffic.
 5. Identify where the value appears in a *previous* response.
 6. Add an extractor at that response, reference the variable in the failing request.
@@ -64,14 +64,14 @@ Correlation is extracting a dynamic value from a response and using it in a subs
 
 ## Assertions (Why They're Non-Negotiable)
 
-Without assertions, your test might generate 1000 RPS of 404 responses or empty bodies — and your metrics will look "fine."
+Without assertions, your test might generate 1000 RPS of 404 responses or empty bodies - and your metrics will look "fine."
 
 ### What to assert
-- **Status code** — the obvious one; but also check for 200s that contain error bodies.
-- **Response body** — key field exists and has expected value.
-- **Response time** — flag individual responses over SLA as failures.
-- **Response size** — detect truncated or empty bodies.
-- **Content-Type header** — ensure you got JSON, not an HTML error page.
+- **Status code** - the obvious one; but also check for 200s that contain error bodies.
+- **Response body** - key field exists and has expected value.
+- **Response time** - flag individual responses over SLA as failures.
+- **Response size** - detect truncated or empty bodies.
+- **Content-Type header** - ensure you got JSON, not an HTML error page.
 
 ### Assertion layering
 
@@ -141,7 +141,7 @@ Most tools handle cookies automatically. Verify the Cookie Manager is enabled.
 1. Authenticate in `setup()` or `on_start()`.
 2. Store the token in session variables.
 3. Add as Authorization header to subsequent requests.
-4. Handle token expiry — check for 401 responses and re-authenticate.
+4. Handle token expiry - check for 401 responses and re-authenticate.
 
 ```javascript
 // k6: handle token refresh

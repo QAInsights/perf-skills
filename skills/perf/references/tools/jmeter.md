@@ -10,7 +10,7 @@ Apache JMeter is the most widely used open-source performance testing tool. It s
 
 | Concept | Description |
 |---|---|
-| **Test Plan** | Root container — the `.jmx` file |
+| **Test Plan** | Root container - the `.jmx` file |
 | **Thread Group** | Defines VU count, ramp-up, and loop count |
 | **Sampler** | Makes a request (HTTP, JDBC, JMS, TCP, etc.) |
 | **Controller** | Logic: Loop, If, While, Throughput |
@@ -46,11 +46,11 @@ Use `jp@gc - Concurrency Thread Group` for target-concurrency model:
 
 ## HTTP Sampler Best Practices
 
-- Always use **HTTP Request Defaults** config element for base URL/port/protocol — never hardcode in individual samplers.
+- Always use **HTTP Request Defaults** config element for base URL/port/protocol - never hardcode in individual samplers.
 - Set **Content-Type** header in an HTTP Header Manager at Thread Group level, not per sampler.
 - Use **KeepAlive** (default on) for realistic connection reuse.
 - Use **Follow Redirects** only when your app requires it; disable otherwise for accuracy.
-- Avoid using **View Results Tree** listener in load tests — it's memory-intensive; use it only during script development.
+- Avoid using **View Results Tree** listener in load tests - it's memory-intensive; use it only during script development.
 
 ---
 
@@ -113,7 +113,7 @@ Sharing Mode:       All Threads  ← or "Current Thread Group" if isolated data 
 
 ## JSR223 Scripting (Groovy)
 
-Always use **JSR223** over BeanShell — Groovy is compiled and cached, BeanShell is not.
+Always use **JSR223** over BeanShell - Groovy is compiled and cached, BeanShell is not.
 
 ### Pre-processor: Generate a dynamic timestamp
 ```groovy
@@ -161,7 +161,7 @@ Duration to assert: 2000   ← flag any response > 2000ms
 ```
 
 ### Response Size Assertion
-Use to detect incomplete responses — flag if body < 100 bytes unexpectedly.
+Use to detect incomplete responses - flag if body < 100 bytes unexpectedly.
 
 **Important:** Add assertions to the **transaction controller level** where possible, not individual samplers, to get meaningful business-transaction-level validation.
 
@@ -188,7 +188,7 @@ Set **Generate Parent Sample = true** to log only the aggregate transaction (not
 |---|---|
 | Constant Timer | Simple fixed think time |
 | Uniform Random Timer | Range between min–max |
-| Gaussian Random Timer | Bell-curve distribution — most realistic |
+| Gaussian Random Timer | Bell-curve distribution - most realistic |
 | Throughput Shaping Timer | Target a specific RPS regardless of VU count |
 
 Gaussian formula: `delay = Constant + Gaussian(deviation)`
@@ -241,10 +241,10 @@ Install plugins via: **Options → Plugins Manager → Available Plugins**
 
 ## JMeter-Specific Tips
 
-- **Always run in non-GUI mode** for load tests — GUI mode consumes JMeter's own resources and distorts results.
-- **Use HTTP Request Defaults** — hardcoded hosts make environment switching painful.
-- **Never put listeners inside loops** — View Results Tree in a loop will OOM the JVM.
-- **Use JSR223 (Groovy) over BeanShell** — Groovy is compiled and cached; BeanShell is interpreted per invocation.
+- **Always run in non-GUI mode** for load tests - GUI mode consumes JMeter's own resources and distorts results.
+- **Use HTTP Request Defaults** - hardcoded hosts make environment switching painful.
+- **Never put listeners inside loops** - View Results Tree in a loop will OOM the JVM.
+- **Use JSR223 (Groovy) over BeanShell** - Groovy is compiled and cached; BeanShell is interpreted per invocation.
 - **Set JVM heap** for large tests: `JVM_ARGS="-Xms2g -Xmx4g" jmeter -n -t test.jmx`
 
 > For CI/CD integration (Maven, GitHub Actions, GitLab, Jenkins), see `../topics/test-execution.md`.

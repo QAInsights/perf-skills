@@ -1,22 +1,22 @@
 # Protocol-Specific Performance Testing
 
-Covers gRPC, GraphQL, WebSocket/SSE, and message queue (Kafka, RabbitMQ, SQS) load testing — protocols with unique challenges beyond standard HTTP/REST.
+Covers gRPC, GraphQL, WebSocket/SSE, and message queue (Kafka, RabbitMQ, SQS) load testing - protocols with unique challenges beyond standard HTTP/REST.
 
 ---
 
 ## gRPC Performance Testing
 
-gRPC uses HTTP/2, Protocol Buffers, and persistent connections — fundamentally different from REST at the wire level.
+gRPC uses HTTP/2, Protocol Buffers, and persistent connections - fundamentally different from REST at the wire level.
 
 ### Key Challenges
 
 | Challenge | Why It Matters |
 |---|---|
 | **Protobuf compilation** | Tests require compiled `.proto` definitions; can't just send raw JSON |
-| **Connection multiplexing** | HTTP/2 multiplexes streams over a single connection — fewer connections needed but different bottleneck profile |
+| **Connection multiplexing** | HTTP/2 multiplexes streams over a single connection - fewer connections needed but different bottleneck profile |
 | **Streaming** | Unary, server-streaming, client-streaming, and bidirectional-streaming each need different test strategies |
 | **Metadata vs headers** | gRPC metadata is the equivalent of HTTP headers; auth tokens go here |
-| **Error codes** | gRPC uses its own status codes (OK, UNAVAILABLE, DEADLINE_EXCEEDED) — not HTTP status codes |
+| **Error codes** | gRPC uses its own status codes (OK, UNAVAILABLE, DEADLINE_EXCEEDED) - not HTTP status codes |
 
 ### Tool Support
 
@@ -58,14 +58,14 @@ export default function () {
 - **Connection reuse**: Keep connections open across iterations; don't connect/close per request.
 - **Streaming throughput**: For server-streaming RPCs, measure messages-per-second, not just request latency.
 - **Deadline propagation**: Set gRPC deadlines in tests to match production timeouts.
-- **Load balancer awareness**: gRPC over HTTP/2 with persistent connections can cause uneven load across backends — test with client-side load balancing or L7 proxy.
-- **Protobuf payload size**: Binary encoding is smaller than JSON — adjust throughput expectations accordingly.
+- **Load balancer awareness**: gRPC over HTTP/2 with persistent connections can cause uneven load across backends - test with client-side load balancing or L7 proxy.
+- **Protobuf payload size**: Binary encoding is smaller than JSON - adjust throughput expectations accordingly.
 
 ---
 
 ## GraphQL Performance Testing
 
-GraphQL introduces query complexity as a variable — the same endpoint can serve trivially cheap or devastatingly expensive requests.
+GraphQL introduces query complexity as a variable - the same endpoint can serve trivially cheap or devastatingly expensive requests.
 
 ### Key Challenges
 
@@ -79,7 +79,7 @@ GraphQL introduces query complexity as a variable — the same endpoint can serv
 
 ### Testing Strategy
 
-1. **Catalog production queries**: Extract real queries from logs or APM traces — don't invent synthetic queries.
+1. **Catalog production queries**: Extract real queries from logs or APM traces - don't invent synthetic queries.
 2. **Categorize by cost**: Light (single field), medium (nested 2 levels), heavy (deep joins, lists).
 3. **Build a realistic query mix**: Weight tests by actual production query distribution.
 4. **Test with and without caching**: GraphQL caching (DataLoader, CDN) dramatically changes performance profiles.
@@ -136,7 +136,7 @@ Persistent connections have fundamentally different scaling characteristics from
 
 | Challenge | Why It Matters |
 |---|---|
-| **Connection count** | Each VU holds an open connection — tests memory/fd limits, not just CPU |
+| **Connection count** | Each VU holds an open connection - tests memory/fd limits, not just CPU |
 | **Message throughput** | Measure messages/sec independently from connection count |
 | **Backpressure** | What happens when the server can't send fast enough? |
 | **Reconnection behavior** | Dropped connections should auto-reconnect; test the reconnect storm |
@@ -194,7 +194,7 @@ export default function () {
 
 ### WebSocket Testing Strategy
 
-1. **Connection ramp**: Gradually open connections — don't blast 10k connections at once.
+1. **Connection ramp**: Gradually open connections - don't blast 10k connections at once.
 2. **Separate connection test from message test**: First, find max stable connections; then test message throughput at a stable connection count.
 3. **Measure server-side**: File descriptor count, memory per connection, event loop lag.
 4. **Test reconnection storms**: Kill server, observe client reconnection behavior and server recovery.
@@ -211,7 +211,7 @@ Testing Kafka, RabbitMQ, SQS, and similar systems requires measuring producer th
 |---|---|
 | **Producer throughput** | Messages/sec the system can ingest |
 | **Consumer lag** | How far behind consumers fall under load |
-| **End-to-end latency** | Time from produce to consume — the real user-facing metric |
+| **End-to-end latency** | Time from produce to consume - the real user-facing metric |
 | **Partition scaling** | Kafka throughput scales with partitions; test with realistic partition counts |
 | **Message ordering** | Under load, verify ordering guarantees still hold |
 | **Dead letter queues** | Verify failed messages route correctly under pressure |
@@ -256,10 +256,10 @@ export function teardown() {
 ### Message Queue Testing Strategy
 
 1. **Test producers and consumers separately first**, then together.
-2. **Measure consumer lag over time** — a growing lag under steady load indicates a bottleneck.
-3. **Test with realistic message sizes** — a 100-byte message vs a 1MB payload have very different throughput ceilings.
-4. **Verify idempotency** — under load with retries, duplicate messages should not corrupt state.
-5. **Test partition rebalancing** — add/remove consumers during a test to verify rebalance behavior.
+2. **Measure consumer lag over time** - a growing lag under steady load indicates a bottleneck.
+3. **Test with realistic message sizes** - a 100-byte message vs a 1MB payload have very different throughput ceilings.
+4. **Verify idempotency** - under load with retries, duplicate messages should not corrupt state.
+5. **Test partition rebalancing** - add/remove consumers during a test to verify rebalance behavior.
 
 ---
 

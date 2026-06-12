@@ -244,7 +244,7 @@ mvn gatling:test \
 
 ## Java DSL (Gatling 3.7+)
 
-Gatling now supports Java and Kotlin natively — no Scala required:
+Gatling now supports Java and Kotlin natively - no Scala required:
 
 ```java
 import io.gatling.javaapi.core.*;
@@ -271,16 +271,16 @@ public class LoginSimulation extends Simulation {
 
 ## Results
 
-Gatling generates an HTML report in `target/gatling/<simulation-timestamp>/index.html` — commit the link to CI artifacts or use Gatling Enterprise for centralized dashboards.
+Gatling generates an HTML report in `target/gatling/<simulation-timestamp>/index.html` - commit the link to CI artifacts or use Gatling Enterprise for centralized dashboards.
 
 ---
 
 ## Gatling-Specific Tips
 
-- **Never use blocking/synchronous calls inside `exec`** — Gatling's engine is async; blocking calls degrade throughput significantly.
-- **Use `.warmUp()` or an initial ramp phase** — JVM JIT compilation distorts early metrics without warm-up.
-- **Use `global` or named `details()` assertions** — asserting on individual requests instead of aggregated transactions is noisy.
-- **Prefer `heavisideUsers` for burst injection** — S-curve injection is more realistic than `atOnceUsers` for spike tests.
+- **Never use blocking/synchronous calls inside `exec`** - Gatling's engine is async; blocking calls degrade throughput significantly.
+- **Use `.warmUp()` or an initial ramp phase** - JVM JIT compilation distorts early metrics without warm-up.
+- **Use `global` or named `details()` assertions** - asserting on individual requests instead of aggregated transactions is noisy.
+- **Prefer `heavisideUsers` for burst injection** - S-curve injection is more realistic than `atOnceUsers` for spike tests.
 
 > For CI/CD integration (Maven, Gradle, GitHub Actions), see `../topics/test-execution.md`.
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.

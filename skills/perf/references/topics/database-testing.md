@@ -1,6 +1,6 @@
 # Database Performance Testing
 
-Covers load testing databases directly (JDBC, connection pools, query concurrency) — not just testing the application layer that sits in front of them.
+Covers load testing databases directly (JDBC, connection pools, query concurrency) - not just testing the application layer that sits in front of them.
 
 ---
 
@@ -91,7 +91,7 @@ Connection pool misconfiguration is one of the most common database performance 
 | **Min idle connections** | Start test after idle period; measure cold-start latency vs pre-warmed |
 | **Connection timeout** | Set aggressive timeout; verify graceful degradation when pool exhausted |
 | **Idle timeout / eviction** | Run soak test; verify idle connections get recycled without errors |
-| **Leak detection** | Run soak test; monitor active connection count — it should stabilize, not grow |
+| **Leak detection** | Run soak test; monitor active connection count - it should stabilize, not grow |
 
 ### Diagnosing Pool Exhaustion
 
@@ -104,8 +104,8 @@ Symptoms:
 Root causes:
 1. Pool max size too small for concurrency
 2. Long-running queries hold connections
-3. Connection leak — app code doesn't close connections in finally/catch blocks
-4. N+1 queries — each request opens multiple connections sequentially
+3. Connection leak - app code doesn't close connections in finally/catch blocks
+4. N+1 queries - each request opens multiple connections sequentially
 ```
 
 ### Key Metrics to Monitor
@@ -126,10 +126,10 @@ Queries that perform well at 1 VU often degrade at 100 VUs due to lock contentio
 
 ### Testing Approach
 
-1. **Baseline single-query latency** — run the query once, capture execution plan.
-2. **Ramp concurrent query execution** — 1, 5, 10, 25, 50, 100 concurrent threads.
+1. **Baseline single-query latency** - run the query once, capture execution plan.
+2. **Ramp concurrent query execution** - 1, 5, 10, 25, 50, 100 concurrent threads.
 3. **Monitor per-step**: query latency (p50/p95/p99), lock waits, buffer cache hit ratio, disk I/O.
-4. **Identify the knee point** — the concurrency level where latency starts climbing non-linearly.
+4. **Identify the knee point** - the concurrency level where latency starts climbing non-linearly.
 
 ### Slow Query Detection During Load Tests
 
@@ -167,7 +167,7 @@ For read-replica architectures, verify that replication lag doesn't cause stale 
 1. **Write a record** with a unique marker (timestamp + test ID) to the primary.
 2. **Immediately read** the same record from the replica.
 3. **Measure the delay** until the record appears on the replica.
-4. **Track lag over time** — it should stabilize, not grow.
+4. **Track lag over time** - it should stabilize, not grow.
 
 ### What Replication Lag Breaks
 

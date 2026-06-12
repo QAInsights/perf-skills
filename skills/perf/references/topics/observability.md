@@ -58,9 +58,9 @@ X-Load-Test-Run: ${__P(build.id,manual)}
 X-Load-Test-Phase: ${__P(phase,load)}
 ```
 
-**Step 2:** In your APM, filter traces and metrics by the test tag — isolate test traffic from organic traffic.
+**Step 2:** In your APM, filter traces and metrics by the test tag - isolate test traffic from organic traffic.
 
-**Step 3:** Align timelines — zoom in on the window when p95 degraded and look at:
+**Step 3:** Align timelines - zoom in on the window when p95 degraded and look at:
 - Service CPU and memory during that window
 - DB query duration spike
 - Thread pool queue depth
@@ -149,7 +149,7 @@ testRun: "build-42" AND duration_ms: >500
 
 ## Distributed Tracing
 
-Traces show the end-to-end path of a single request across microservices — invaluable for pinpointing *which service* in a chain is slow.
+Traces show the end-to-end path of a single request across microservices - invaluable for pinpointing *which service* in a chain is slow.
 
 ### Setup for load testing
 - Confirm tracing is active in the target environment.

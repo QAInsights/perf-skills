@@ -1,7 +1,7 @@
 {
   "name": "perf-skills",
-  "version": "1.0.4",
-  "description": "Expert AI skill for performance testing — covers JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, OctoPerf across the full lifecycle",
+  "version": "2.0.0",
+  "description": "Expert AI skill for performance testing - covers JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, OctoPerf across the full lifecycle",
   "main": "skills/perf/SKILL.md",
   "files": [
     "skills/",

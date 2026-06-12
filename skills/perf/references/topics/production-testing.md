@@ -1,6 +1,6 @@
 # Production & Staging Performance Testing
 
-Running tests in production is not inherently dangerous — it's a discipline. Many organizations run production performance testing routinely. The key is controlled blast radius, observability, and rollback readiness.
+Running tests in production is not inherently dangerous - it's a discipline. Many organizations run production performance testing routinely. The key is controlled blast radius, observability, and rollback readiness.
 
 ---
 
@@ -18,13 +18,13 @@ Staging is only a reliable proxy for production if:
 | **Network** | Similar topology (no shortcutting the load balancer) |
 | **Dependencies** | Real downstream services (not mocks for performance tests) |
 
-Using mocks for load tests is only appropriate for component-level isolation tests — full user journey tests must hit real (or realistic stub) dependencies.
+Using mocks for load tests is only appropriate for component-level isolation tests - full user journey tests must hit real (or realistic stub) dependencies.
 
 ### Staging Limitations
 - Cache hit rates will differ if data set is too small.
 - Third-party integrations may behave differently (rate limits are usually lower in test).
 - Infrastructure auto-scaling may not be configured identically.
-- Cold-start performance distorts early-stage results — pre-warm before measuring.
+- Cold-start performance distorts early-stage results - pre-warm before measuring.
 
 ### Pre-Warm Strategy
 ```bash
@@ -63,7 +63,7 @@ Gradually increase canary traffic percentage while monitoring:
 
 ### Strategy 2: Shadow Testing (Traffic Mirroring)
 
-Mirror production traffic to a shadow cluster — it receives all production requests but its responses are discarded:
+Mirror production traffic to a shadow cluster - it receives all production requests but its responses are discarded:
 
 ```
 Real User Request
@@ -72,7 +72,7 @@ Real User Request
     └─ Mirror → Shadow (v2)  → Response discarded (no user impact)
 ```
 
-Shadow cluster processes real production workload — perfect for validating performance of a new version without any user impact.
+Shadow cluster processes real production workload - perfect for validating performance of a new version without any user impact.
 
 **Tools:** AWS ALB request mirroring, Istio `mirror`, NGINX `mirror` directive.
 
@@ -120,7 +120,7 @@ kubectl exec -it chaos-pod -- \
   tc qdisc add dev eth0 root netem delay 100ms loss 10%
 ```
 
-**Always combine chaos with a baseline load** — run at 50% of expected peak so the system has load to respond to when faults occur.
+**Always combine chaos with a baseline load** - run at 50% of expected peak so the system has load to respond to when faults occur.
 
 ---
 
@@ -154,7 +154,7 @@ kubectl exec -it chaos-pod -- \
 | **Rollback plan** | Documented and tested rollback procedure ready |
 | **Communication** | Ops/SRE on standby; incident channel open |
 | **Synthetic user tagging** | All test requests tagged to exclude from real user metrics |
-| **No real user data** | Synthetic test data only — never process real PII in load tests |
+| **No real user data** | Synthetic test data only - never process real PII in load tests |
 
 ### Auto-abort configuration
 
@@ -206,9 +206,9 @@ Each environment adds fidelity; the production stage assumes all previous stages
 
 If something breaks during a test:
 
-1. **Immediately stop the test** (kill switch — stop all injectors).
-2. **Capture current state** — snapshot metrics, take thread dumps (Java), capture logs.
-3. **Assess impact** — are real users affected? Is the failure isolated to test traffic?
-4. **Roll back if needed** — restore previous version, restart services.
-5. **Preserve evidence** — don't restart services without capturing logs and heap dumps.
-6. **Post-mortem** — document what broke, at what load, what the root cause was.
+1. **Immediately stop the test** (kill switch - stop all injectors).
+2. **Capture current state** - snapshot metrics, take thread dumps (Java), capture logs.
+3. **Assess impact** - are real users affected? Is the failure isolated to test traffic?
+4. **Roll back if needed** - restore previous version, restart services.
+5. **Preserve evidence** - don't restart services without capturing logs and heap dumps.
+6. **Post-mortem** - document what broke, at what load, what the root cause was.

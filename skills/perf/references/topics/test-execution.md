@@ -1,6 +1,6 @@
 # Test Execution
 
-Covers how to run performance tests reliably — locally, in CI/CD pipelines, distributed across injectors, and in the cloud.
+Covers how to run performance tests reliably - locally, in CI/CD pipelines, distributed across injectors, and in the cloud.
 
 ---
 
@@ -19,7 +19,7 @@ Covers how to run performance tests reliably — locally, in CI/CD pipelines, di
 
 - Always use **non-GUI / headless mode** for actual load runs (GUI mode adds overhead).
 - Run scripts from the same network segment as the system under test when possible.
-- Monitor injector machine resources during the test — if CPU/memory of the injector saturates, results are invalid.
+- Monitor injector machine resources during the test - if CPU/memory of the injector saturates, results are invalid.
 - Set JVM heap appropriately for JMeter: `JVM_ARGS="-Xms2g -Xmx4g" jmeter -n -t test.jmx`
 
 ---
@@ -47,7 +47,7 @@ remote_hosts=injector-1:1099,injector-2:1099,injector-3:1099
 jmeter -n -t test.jmx -r -l results.jtl -Jthreads=300 -Jduration=600
 ```
 
-**Ports to open:** 1099 (RMI control), 50000+ (dynamic data ports) — firewall rules critical.
+**Ports to open:** 1099 (RMI control), 50000+ (dynamic data ports) - firewall rules critical.
 
 **Scaling:** Each injector can typically handle 300–500 VUs for HTTP at moderate response times. For 10k VUs, plan 20–30 injectors.
 
@@ -136,7 +136,7 @@ Code PR  →  Build  →  Unit/Integration Tests  →  [Performance Gate]  →  
                                                          └─ PASS → Deploy / FAIL → Block
 ```
 
-### GitHub Actions — k6
+### GitHub Actions - k6
 
 ```yaml
 name: Performance Gate
@@ -183,7 +183,7 @@ jobs:
           # For additional reporting, parse results.json here
 ```
 
-### GitHub Actions — JMeter
+### GitHub Actions - JMeter
 
 ```yaml
       - name: Run JMeter Tests

@@ -1,6 +1,6 @@
 # Results Analysis
 
-Interpreting performance test results is a skill in itself. Raw numbers are meaningless without context — this reference covers how to read, analyze, and act on performance data.
+Interpreting performance test results is a skill in itself. Raw numbers are meaningless without context - this reference covers how to read, analyze, and act on performance data.
 
 ---
 
@@ -9,12 +9,12 @@ Interpreting performance test results is a skill in itself. Raw numbers are mean
 | Metric | Description | Target |
 |---|---|---|
 | **Throughput** | Requests per second (RPS / TPS) | ≥ defined baseline |
-| **Response Time (p50)** | Median — half of requests faster than this | Per SLA |
-| **Response Time (p95)** | 95% of requests faster than this — main SLA metric | Per SLA |
-| **Response Time (p99)** | Tail latency — reveals worst-case behavior | Per SLA |
+| **Response Time (p50)** | Median - half of requests faster than this | Per SLA |
+| **Response Time (p95)** | 95% of requests faster than this - main SLA metric | Per SLA |
+| **Response Time (p99)** | Tail latency - reveals worst-case behavior | Per SLA |
 | **Error Rate** | % of failed requests | < 1% (or as defined) |
 | **Active VUs / Concurrency** | Number of simulated users at any point | Matches load profile |
-| **Network I/O** | Bytes/sec in and out — detects bandwidth bottlenecks | Headroom vs NIC capacity |
+| **Network I/O** | Bytes/sec in and out - detects bandwidth bottlenecks | Headroom vs NIC capacity |
 
 ---
 
@@ -47,9 +47,9 @@ Example: 100 requests
 | Column | Meaning |
 |---|---|
 | # Samples | Total requests sent |
-| Average | Mean response time (ms) — use sparingly |
+| Average | Mean response time (ms) - use sparingly |
 | Min / Max | Absolute floor and ceiling |
-| Std. Dev. | Variance — high deviation = inconsistent behavior |
+| Std. Dev. | Variance - high deviation = inconsistent behavior |
 | Error % | Percentage of failed requests |
 | Throughput | Requests/second |
 | KB/sec | Network throughput |
@@ -57,11 +57,11 @@ Example: 100 requests
 
 ### HTML Dashboard
 Generated with `-e -o results/dashboard` flag. Key graphs:
-- **Response Time Over Time** — spot degradation trends
-- **Transactions Per Second** — confirm throughput matches expectation
-- **Response Time Percentiles** — see distribution
-- **Active Threads Over Time** — correlate with response time
-- **Errors Over Time** — when and what errors spike
+- **Response Time Over Time** - spot degradation trends
+- **Transactions Per Second** - confirm throughput matches expectation
+- **Response Time Percentiles** - see distribution
+- **Active Threads Over Time** - correlate with response time
+- **Errors Over Time** - when and what errors spike
 
 ### JTL Analysis (programmatic)
 ```python
@@ -191,7 +191,7 @@ Sudden jump at a load threshold = system has hit a constraint (thread limit, DB 
 
 ## Comparing Runs (Trend Analysis)
 
-Always compare the current run against a baseline — never evaluate a run in isolation.
+Always compare the current run against a baseline - never evaluate a run in isolation.
 
 | Metric | Run 1 (Baseline) | Run 2 | Delta | Status |
 |---|---|---|---|---|
