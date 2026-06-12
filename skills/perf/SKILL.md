@@ -51,7 +51,8 @@ Multiple files may apply.
 | OctoPerf cloud test management                   | `references/tools/octoperf.md`                    |
 | Designing workloads, concurrency, pacing         | `references/topics/workload-design.md`            |
 | Test data, parameterization, CSV feeds           | `references/topics/test-data.md`                  |
-| Script patterns, correlation, best practices     | `references/topics/script-generation.md`          |
+| Script patterns, best practices                  | `references/topics/script-generation.md`          |
+| Correlation, extractors, dynamic values           | `references/topics/correlation.md`                |
 | CI/CD, distributed execution, cloud runners      | `references/topics/test-execution.md`             |
 | Analyzing results, percentiles, SLAs             | `references/topics/results-analysis.md`           |
 | APM, metrics, tracing, dashboards                | `references/topics/observability.md`              |

@@ -180,7 +180,8 @@ perf-skills/                              # Repository root
             └── topics/                   # Cross-cutting concepts (tool-agnostic)
                 ├── workload-design.md        # Concurrency models, load profiles, Little's Law
                 ├── test-data.md              # CSV, DB seeding, Faker, data isolation patterns
-                ├── script-generation.md      # Correlation, assertions, error handling, naming
+                ├── script-generation.md      # Assertions, error handling, naming, structure
+                ├── correlation.md            # Dynamic values, extractors, regex, tool mappings
                 ├── test-execution.md         # Distributed, CI/CD (GitHub Actions, GitLab, Jenkins)
                 ├── results-analysis.md       # Percentiles, bottleneck framework, reporting
                 ├── observability.md          # APM, Prometheus, Grafana, tracing, JVM metrics
