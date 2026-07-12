@@ -191,6 +191,7 @@ perf-skills/
             │   ├── k6.md                 # k6 JS/TS scripting, thresholds, VU options
             │   ├── gatling.md            # Gatling Scala/Java DSL & feeders
             │   ├── locust.md             # Locust Python scripting & FastHttpUser
+│   ├── artillery.md          # Artillery YAML/JS/TS scripting, phases, ensure SLOs, cloud
             │   ├── neoload.md            # NeoLoad GUI configs & API execution
             │   ├── loadrunner.md         # LoadRunner VuGen C scripting
             │   └── octoperf.md           # OctoPerf JMeter-based cloud execution
@@ -205,7 +206,9 @@ perf-skills/
                 ├── production-testing.md # Chaos engineering, canary safety controls
                 ├── protocol-testing.md   # gRPC, GraphQL, WebSockets, Kafka
                 ├── database-testing.md   # JDBC, pools, deadlocks, slow queries
-                └── modern-architectures.md # K8s scaling, HPA, Frontend CWV
+                ├── modern-architectures.md # K8s scaling, HPA, Frontend CWV
+                ├── llm-inference.md     # LLM serving: TTFT, TPOT/ITL, TPS, goodput, tools
+                └── slo-capacity.md      # SLOs, error budgets, headroom, CI gating
 ```
 
 ---
@@ -226,6 +229,8 @@ To avoid hitting context window limits, the skill operates on a **selective load
 | *"How should I correlate a dynamic JSESSIONID in JMeter?"* | `jmeter.md` + `correlation.md` |
 | *"Set up a distributed Locust execution in GitLab CI"* | `locust.md` + `test-execution.md` |
 | *"Our p95 latency spikes during database writes, how do we fix?"* | `database-testing.md` + `results-analysis.md` |
+| *"What TTFT/throughput can our vLLM endpoint sustain at 200 concurrent users?"* | `llm-inference.md` |
+| *"How many replicas do we need, and what SLO headroom should we keep?"* | `slo-capacity.md` |
 
 ---
 
@@ -240,3 +245,4 @@ We welcome contributions to expand the knowledge base:
 ## 📄 License
 
 This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
+tails.

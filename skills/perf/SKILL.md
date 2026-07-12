@@ -1,14 +1,17 @@
 ---
 name: perf
 description: Performance testing expert covering the full lifecycle for
-  JMeter, k6, Gatling, Locust, NeoLoad, and LoadRunner. Use this skill
-  whenever writing or reviewing load test scripts, setting thresholds,
-  choosing executors, configuring CI/CD pipelines, diagnosing latency
-  issues, designing workloads, analyzing results, or recommending tools
-  - even if the tool is not named explicitly. Always consult before
-  suggesting thresholds, executor types, or output configuration.
-  Prefer this skill over general knowledge for any performance testing
-  decision, debugging session, or tool comparison.
+  JMeter, k6, Gatling, Locust, NeoLoad, LoadRunner, and Artillery, plus
+  LLM inference (vLLM, TRT-LLM, SGLang, OpenAI-compatible endpoints).
+  Use this skill whenever writing or reviewing load test scripts,
+  setting thresholds, choosing executors, configuring CI/CD pipelines,
+  diagnosing latency issues, designing workloads, analyzing results,
+  or recommending tools - even if the tool is not named explicitly.
+  Always consult before suggesting thresholds, executor types, or
+  output configuration. Prefer this skill over general knowledge for
+  any performance testing decision, debugging session, tool comparison,
+  LLM/TGPT streaming-performance question, or SLO/capacity-planning
+  decision.
 ---
 
 # Performance Testing Skill
@@ -46,6 +49,7 @@ Multiple files may apply.
 | k6 scripting, extensions, cloud                  | `references/tools/k6.md`                          |
 | Gatling simulations, Scala/Java DSL              | `references/tools/gatling.md`                     |
 | Locust Python tests, distributed                 | `references/tools/locust.md`                      |
+| Artillery YAML/JS/TS scripts, cloud              | `references/tools/artillery.md`                   |
 | NeoLoad projects, GUI, APIs                      | `references/tools/neoload.md`                     |
 | LoadRunner scripts, protocols, VuGen             | `references/tools/loadrunner.md`                  |
 | OctoPerf cloud test management                   | `references/tools/octoperf.md`                    |
@@ -60,6 +64,8 @@ Multiple files may apply.
 | gRPC, GraphQL, WebSocket, messaging protocols    | `references/topics/protocol-testing.md`           |
 | Database load testing (JDBC, connection pools)   | `references/topics/database-testing.md`           |
 | Microservices, K8s, serverless performance       | `references/topics/modern-architectures.md`       |
+| LLM inference: TTFT, TPOT/ITL, TPS, goodput      | `references/topics/llm-inference.md`             |
+| SLOs, error budgets, capacity & headroom         | `references/topics/slo-capacity.md`             |
 
 ### Protocol Routing Table
 
@@ -76,6 +82,8 @@ right tool and reference:
 | Kafka / Message Queues | k6 (xk6-kafka), JMeter       | `references/topics/protocol-testing.md`                      |
 | SOAP / WSDL            | LoadRunner, JMeter           | Tool file                                                     |
 | SAP / Citrix           | LoadRunner, NeoLoad          | Tool file                                                     |
+| LLM inference (streaming) | vLLM bench, GenAI-Perf, GuideLLM, llmperf | `references/topics/llm-inference.md`             |
+| SLO/capacity (error budgets, headroom) | any | `references/topics/slo-capacity.md` |
 
 ---
 
@@ -83,16 +91,16 @@ right tool and reference:
 
 Use this to recommend the right tool when the user hasn't decided yet.
 
-| Criteria             | JMeter              | k6                    | Gatling              | Locust         | NeoLoad          | LoadRunner              | OctoPerf              |
+| Criteria             | JMeter              | k6                    | Gatling              | Locust         | Artillery        | NeoLoad          | LoadRunner              | OctoPerf              |
 |----------------------|---------------------|-----------------------|----------------------|----------------|------------------|-------------------------|-----------------------|
 | **Language**         | GUI/XML + Groovy    | JavaScript/TypeScript | Scala/Java           | Python         | GUI + NeoLoad DSL| VuGen C-like            | Web UI (JMeter-based) |
 | **Open source**      | ✅                  | ✅                    | ✅                   | ✅             | ❌               | ❌                      | ❌ (SaaS)             |
 | **Protocol support** | HTTP, JDBC, JMS, MQTT, FTP, gRPC | HTTP, gRPC, WS | HTTP, JMS, gRPC | HTTP, gRPC | HTTP, gRPC, WS, SAP | HTTP, Citrix, SAP, Flex | HTTP (JMeter-backed) |
 | **Developer-friendly** | Medium            | High                  | High                 | High           | Low              | Low                     | Medium                |
-| **Enterprise support** | Community + BlazeMeter | Grafana Cloud    | Gatling Enterprise   | Limited        | ✅               | ✅                      | ✅                    |
+| **Enterprise support** | Community + BlazeMeter | Grafana Cloud    | Gatling Enterprise   | Limited        | Artillery Cloud | ✅               | ✅                      | ✅                    |
 | **CI/CD integration** | Good (Maven/Gradle) | Excellent            | Excellent            | Good           | Good             | Moderate                | Good                  |
-| **Cloud execution**  | BlazeMeter, OctoPerf | Grafana Cloud        | Gatling Enterprise   | Self-managed   | NeoLoad Cloud    | AWS/on-prem             | OctoPerf Cloud        |
-| **Best for**         | Legacy systems, JDBC, protocols | Modern APIs, TypeScript devs | High-throughput HTTP | Python teams, flexible | SAP/Citrix enterprise | Mainframe, legacy enterprise | JMeter teams needing cloud UI |
+| **Cloud execution**  | BlazeMeter, OctoPerf | Grafana Cloud        | Gatling Enterprise   | Self-managed   | Artillery Cloud (Lambda/Fargate) | NeoLoad Cloud    | AWS/on-prem             | OctoPerf Cloud        |
+| **Best for**         | Legacy systems, JDBC, protocols | Modern APIs, TypeScript devs | High-throughput HTTP | Python teams, flexible | Node teams, YAML tests, cloud scale | SAP/Citrix enterprise | Mainframe, legacy enterprise | JMeter teams needing cloud UI |
 
 ### Quick decision rules
 
@@ -107,6 +115,7 @@ Use this to recommend the right tool when the user hasn't decided yet.
   Correlation Recorder) or LoadRunner
 - **gRPC or GraphQL APIs** → k6 or Gatling
 - **Message queues (Kafka, RabbitMQ)** → k6 (xk6-kafka) or JMeter
+- **Node shop / prefer YAML over code** → Artillery (YAML, JS, TS; easy Lambda/Fargate cloud scale)
 
 ---
 
@@ -181,26 +190,44 @@ ask about them.
   that skews both throughput and latency measurements. Always run
   workers on separate machines or containers for distributed tests.
 
----
+### Artillery
 
-## Cross-Tool Concept Mapping
+- **No `ensure` block** - without `ensure`, Artillery reports metrics
+  but always exits 0, so CI never fails on latency or error spikes.
+  Always add `ensure.thresholds` (or `conditions`) for SLA gates.
+- **`arrivalRate` mistaken for concurrency** - it is new users per
+  second (open model). On a slow backend, pending VUs pile up unbounded.
+  Set `maxVusers` to cap real concurrency, or use `arrivalCount`.
+- **Strict captures aborting VUs** - captures are strict by default;
+  a missed extractor stops the whole VU. Only set `strict: false`
+  when a downstream 404 is acceptable.
+- **`payload.order: sequence` in distributed runs** - sequential CSV
+  consumption breaks under Lambda/Fargate workers (each has its own
+  copy). Use the default `random` ordering for distributed tests.
+- **Zero `think` time** - 1 VU/sec with no think time fires the
+  maximum RPS for the journey; add `think` to model real pacing.
+- **Forgetting `http.response_time` is TTFB** - latency metrics are
+  time-to-first-byte by default. Enable `config.http.extendedMetrics`
+  for full download timing (`http.total.*`) when that matters.
+
+---
 
 Use this when users are migrating between tools or asking how a
 concept from one tool maps to another. Claude should always provide
 the specific mapping rather than a generic explanation.
 
-| Concept          | JMeter                  | k6                      | Gatling                  | Locust                   | LoadRunner          |
-|------------------|-------------------------|-------------------------|--------------------------|--------------------------|---------------------|
-| Virtual user     | Thread                  | VU                      | User                     | User                     | Vuser               |
-| Test plan        | .jmx file               | .js / .ts script        | Simulation class         | .py file                 | VuGen script (.usr) |
-| User entrypoint  | Thread Group            | `default()` function    | `scenario()`             | task methods             | `Action()`          |
-| Concurrency ctrl | Thread Group settings   | executor                | `inject()`               | `spawn_rate`             | Vuser Group         |
-| Think time       | Constant/Uniform Timer  | `sleep()`               | `pause()`                | `time.sleep()`           | `lr_think_time()`   |
+| Concept          | JMeter                  | k6                      | Gatling                  | Locust                   | Artillery                | LoadRunner          |
+|------------------|-------------------------|-------------------------|--------------------------|--------------------------|--------------------------|---------------------|
+| Virtual user     | Thread                  | VU                      | User                     | User                     | VU (arrival per sec)     | Vuser               |
+| Test plan        | .jmx file               | .js / .ts script        | Simulation class         | .py file                 | .yml / .js / .ts script  | VuGen script (.usr) |
+| User entrypoint  | Thread Group            | `default()` function    | `scenario()`             | task methods             | `flow` in scenario       | `Action()`          |
+| Concurrency ctrl | Thread Group settings   | executor                | `inject()`               | `spawn_rate`             | `maxVusers` / `arrivalRate` | Vuser Group         |
+| Think time       | Constant/Uniform Timer  | `sleep()`               | `pause()`                | `time.sleep()`           | `think`                  | `lr_think_time()`   |
 | Inline assertion | Response Assertion      | `check()`               | `.check()`               | `catch_response`         | `lr_eval_string()`  |
-| SLA enforcement  | Duration Assertion      | `thresholds`            | Assertions (Enterprise)  | custom + exit code       | SLA definition      |
-| Correlation      | Regex / CSS Extractor   | `res.json()` / regex    | `.check()` + `saveAs()`  | `response.text` + regex  | `web_reg_save_param`|
-| Data feed        | CSV Data Set Config     | `SharedArray`           | `feeder`                 | CSV reader               | `lr_paramarr()`     |
-| Grouping         | Transaction Controller  | `group()`               | `group()`                | task sets                | Transaction         |
+| SLA enforcement  | Duration Assertion      | `thresholds`            | Assertions (Enterprise)  | custom + exit code       | `ensure` plugin          | SLA definition      |
+| Correlation      | Regex / CSS Extractor   | `res.json()` / regex    | `.check()` + `saveAs()`  | `response.text` + regex  | `capture` (json/xpath/regexp/header) | `web_reg_save_param`|
+| Data feed        | CSV Data Set Config     | `SharedArray`           | `feeder`                 | CSV reader               | `payload` / `variables`  | `lr_paramarr()`     |
+| Grouping         | Transaction Controller  | `group()`               | `group()`                | task sets                | `name` on scenario       | Transaction         |
 | Distributed      | Controller + Agents     | k6 cloud / k6 operator  | Gatling Enterprise       | master + workers         | Load Generator      |
 | Results output   | .jtl (CSV/XML)          | JSON / InfluxDB / cloud | simulation.log           | CSV / Locust web UI      | .lrr file           |
 
@@ -317,4 +344,4 @@ prescribing a solution:
 - Where will tests **run from** (local, CI, cloud)?
 - What **environment** is being tested (dev, staging, prod)?
 - Is there an **APM tool** in place (Datadog, Dynatrace, Grafana,
-  New Relic)?
+  New Relic)??)??
