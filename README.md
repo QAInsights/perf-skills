@@ -254,6 +254,25 @@ To avoid hitting context window limits, the skill operates on a **selective load
 
 ---
 
+## ✅ Eval-Verified Quality
+
+This skill is tested with 11 eval cases across 8 categories (k6, JMeter, Artillery, Locust, tool selection, migration, LLM inference, SLO/capacity). Each eval verifies that the skill context produces correct, concrete answers with code examples - not just generic advice.
+
+| Category | Evals | What it verifies |
+| :--- | :--- | :--- |
+| k6 | 1, 5, 7 | Checks vs thresholds, executor choice, SLA baselines |
+| JMeter | 3 | OOM diagnosis, listener memory leak |
+| Artillery | 8, 9 | `ensure` CI gating, `arrivalRate` vs concurrency |
+| Locust | 6 | `catch_response` silent failure |
+| Tool selection | 2 | Kafka tool recommendation |
+| Migration | 4 | LoadRunner-to-k6 concept mapping |
+| LLM inference | 10 | TTFT/TPOT metrics, benchmarking tools |
+| SLO/capacity | 11 | Error budgets, burn rate CI gating |
+
+Run them yourself - see [`.claude/CLAUDE.md`](.claude/CLAUDE.md) for instructions.
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions to expand the knowledge base:
