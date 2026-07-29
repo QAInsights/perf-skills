@@ -1,0 +1,38 @@
+{
+  "skill_name": "perf",
+  "description": "Queries that SHOULD trigger the perf skill",
+  "trigger": [
+    "Help me write a k6 load test for our REST API",
+    "My JMeter test crashes with OutOfMemoryError in CI",
+    "What tool should I use for load testing a gRPC service?",
+    "How do I correlate JSESSIONID in JMeter?",
+    "Set up a distributed Locust run in GitLab CI",
+    "Our p95 latency spikes during database writes",
+    "What TTFT can our vLLM endpoint sustain at 200 concurrent users?",
+    "How many replicas do we need for our SLO?",
+    "Write an Artillery test with ensure thresholds for our checkout API",
+    "Compare k6 vs Gatling for high-throughput HTTP testing",
+    "My Locust test shows zero failures but the server logs have 500 errors",
+    "How do I parameterize test data in Gatling?",
+    "Set up k6 thresholds for CI gating in GitHub Actions",
+    "What is a good p95 target for a payment endpoint?",
+    "Help me design a soak test to find memory leaks",
+    "How do I benchmark tokens per second on our LLM inference server?",
+    "My Artillery arrivalRate is overwhelming the backend",
+    "Explain Little's Law and how it applies to load testing",
+    "How do I test WebSocket performance?",
+    "Set up error budget alerts for our 99.9% SLO"
+  ],
+  "no_trigger": [
+    "Help me write a unit test for my Python function",
+    "What is the difference between SQL and NoSQL databases?",
+    "How do I set up a React component?",
+    "Explain how Docker containers work",
+    "Write a REST API endpoint in Express.js",
+    "How do I configure ESLint for my project?",
+    "What is the best way to learn machine learning?",
+    "Help me debug a CSS layout issue",
+    "How do I set up a Kubernetes cluster?",
+    "Write a GitHub Actions workflow for deploying my app"
+  ]
+}

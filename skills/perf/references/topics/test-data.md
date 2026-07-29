@@ -194,3 +194,5 @@ const user = users[__VU - 1];  // VU 1 gets row 0, VU 2 gets row 1, etc.
 - [ ] CSV files available on all injector nodes (distributed tests)
 - [ ] Sensitive data masked/anonymized (not using real PII in test data)
 - [ ] Date/time sensitive records accounted for (e.g., expiry dates set far in future)
+
+> **See also:** Tool-specific parameterization syntax in `../tools/k6.md` (SharedArray), `../tools/jmeter.md` (CSV Data Set Config), `../tools/gatling.md` (feeders), `../tools/locust.md`. Distributing data to injectors in `test-execution.md`.

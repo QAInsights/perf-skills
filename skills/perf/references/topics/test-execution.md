@@ -114,12 +114,37 @@ bzt tests/load-test.jmx \
 ```
 
 ### AWS (DIY Cloud Execution)
-```bash
-# Spin up EC2 injectors via Terraform, then run JMeter/k6
-# Use Auto Scaling Groups for burst capacity
-# Use S3 to store results, CloudWatch for metrics
 
-# Cost optimization: use Spot instances for injectors (price vs reliability tradeoff)
+```bash
+# 1. Launch injectors with AWS CLI (or Terraform)
+aws ec2 run-instances \
+  --image-id ami-0abcdef1234567890 \
+  --instance-type c5.2xlarge \
+  --count 4 \
+  --spot-price "0.15" \
+  --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=load-injector}]'
+
+# 2. Install k6 on each injector (via user-data or SSM)
+aws ssm send-command \
+  --instance-ids i-0abc i-0def i-0ghi i-0jkl \
+  --document-name "AWS-RunShellScript" \
+  --parameters 'commands=["sudo apt-get install -y k6"]'
+
+# 3. Distribute the test script and run in parallel
+for ip in 10.0.1.{10..13}; do
+  scp script.js ec2-user@$ip:~/ && \
+  ssh ec2-user@$ip "k6 run --vus 250 --duration 10m script.js --out json=/tmp/results.json" &
+done
+wait
+
+# 4. Collect results to S3
+for ip in 10.0.1.{10..13}; do
+  scp ec2-user@$ip:/tmp/results.json ./results/$(echo $ip | tr '.' '-')-results.json
+done
+aws s3 cp ./results/ s3://my-load-test-bucket/runs/$(date +%Y%m%d)/ --recursive
+
+# Cost optimization: use Spot instances for injectors (60-90% cheaper).
+# Handle interruptions with a 2-min warning hook that flushes partial results.
 ```
 
 ---
@@ -279,3 +304,5 @@ Always monitor the injector resources alongside the SUT:
 - [ ] Smoke test (1 VU) passed before full run
 - [ ] Team notified of test window
 - [ ] Rollback plan in place (especially for production testing)
+
+> **See also:** Tool-specific CLI and distributed setup in `../tools/jmeter.md`, `../tools/k6.md`, `../tools/locust.md`, `../tools/gatling.md`, `../tools/artillery.md`. Monitoring during execution in `observability.md`. Production safety controls in `production-testing.md`.

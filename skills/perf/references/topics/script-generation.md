@@ -39,26 +39,17 @@ Record a HAR file from the browser → import into your tool → clean up and pa
 
 ---
 
-## Correlation Deep Dive
+## Correlation
 
 Correlation is extracting a dynamic value from a response and using it in a subsequent request. Missing correlation is the #1 cause of performance script failure.
 
-### Values that always need correlation
-- **Session tokens** (JSESSIONID, ASP.NET_SessionId)
-- **Auth tokens** (JWT, OAuth access_token, refresh_token)
-- **CSRF tokens** (`_token`, `authenticity_token`, `__RequestVerificationToken`)
-- **View state** (ASP.NET `__VIEWSTATE`, `__EVENTVALIDATION`)
-- **Resource IDs** (created order ID, cart ID, uploaded file ID)
-- **One-time codes** (OTP, nonce, challenge)
-- **Timestamps/signatures** used in request signing
+> **Full reference:** see `correlation.md` for the complete correlation workflow, tool-specific extractor syntax, tech-stack rules (ASP.NET, Java, SAP, OAuth), brittle-vs-robust regex guidance, and the diagnostic playbook.
 
-### Correlation debugging approach
-1. Run the script with 1 VU.
-2. Look for HTTP 4xx errors (especially 403 Forbidden, 422 Unprocessable Entity).
-3. Check the request body/headers - is a token missing or stale?
-4. Use the tool's debug output or proxy (Fiddler, Charles) to inspect live traffic.
-5. Identify where the value appears in a *previous* response.
-6. Add an extractor at that response, reference the variable in the failing request.
+### Quick checklist
+- Session tokens, CSRF tokens, OAuth codes, resource IDs, and one-time nonces must always be correlated.
+- Run with 1 VU first; 403/422 errors usually mean a missing or stale token.
+- Use a proxy (Fiddler, Charles, mitmproxy) to find where the value appears in a previous response.
+- Add the extractor at that response, reference the variable in the failing request.
 
 ---
 
@@ -219,3 +210,5 @@ Treat performance scripts as production code:
 - [ ] Single VU smoke test passes cleanly
 - [ ] Script loads test data from external source (CSV, API)
 - [ ] Environment-specific values in config/env vars
+
+> **See also:** Full correlation reference in `correlation.md`. Parameterization and data feeds in `test-data.md`. Tool-specific syntax in `../tools/k6.md`, `../tools/jmeter.md`, `../tools/gatling.md`, `../tools/locust.md`.

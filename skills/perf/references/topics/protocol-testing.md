@@ -58,6 +58,36 @@ export default function () {
 - **Connection reuse**: Keep connections open across iterations; don't connect/close per request.
 - **Streaming throughput**: For server-streaming RPCs, measure messages-per-second, not just request latency.
 - **Deadline propagation**: Set gRPC deadlines in tests to match production timeouts.
+
+### Gatling gRPC Example
+
+```scala
+// Requires: gatling-grpc plugin (io.gatling:gatling-grpc)
+import io.gatling.core.Predef._
+import io.gatling.grpc.Predef._
+import io.grpc.ManagedChannelBuilder
+import scala.concurrent.duration._
+
+class GrpcSimulation extends Simulation {
+  val channel = ManagedChannelBuilder
+    .forAddress("grpc-server", 50051)
+    .usePlaintext()
+    .build()
+
+  val scn = scenario("gRPC Unary")
+    .exec(
+      grpc("SayHello")
+        .rpc(HelloServiceGrpc.METHOD_SAY_HELLO)
+        .payload(HelloRequest(greeting = "perf-test"))
+        .check(statusCode.is(StatusCode.OK))
+    )
+    .pause(1)
+
+  setUp(
+    scn.injectOpen(rampUsers(100).during(30.seconds))
+  ).protocols(grpc(channel))
+}
+```
 - **Load balancer awareness**: gRPC over HTTP/2 with persistent connections can cause uneven load across backends - test with client-side load balancing or L7 proxy.
 - **Protobuf payload size**: Binary encoding is smaller than JSON - adjust throughput expectations accordingly.
 
@@ -199,6 +229,39 @@ export default function () {
 3. **Measure server-side**: File descriptor count, memory per connection, event loop lag.
 4. **Test reconnection storms**: Kill server, observe client reconnection behavior and server recovery.
 
+### Gatling WebSocket Example
+
+```scala
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import scala.concurrent.duration._
+
+class WebSocketSimulation extends Simulation {
+  val httpProtocol = http.baseUrl("https://app.example.com")
+
+  val scn = scenario("WebSocket Chat")
+    .exec(
+      ws("Connect WS")
+        .connect("/ws/chat")
+        .header("Authorization", "Bearer #{token}")
+    )
+    .exec(
+      ws("Subscribe")
+        .sendText("""{"type":"subscribe","channel":"updates"}""")
+        .await(30.seconds)(
+          ws.checkTextMessage("subscribed")
+            .check(bodyJsonPath("$.type").is("subscribed"))
+        )
+    )
+    .pause(30)  // hold connection open
+    .exec(ws("Close").close)
+
+  setUp(
+    scn.injectOpen(rampUsers(500).during(60.seconds))
+  ).protocols(httpProtocol)
+}
+```
+
 ---
 
 ## Message Queue / Event Streaming Testing
@@ -272,3 +335,5 @@ export function teardown() {
 - [ ] Backpressure / flow control behavior validated
 - [ ] Error codes and retry behavior tested (gRPC status codes, AMQP nacks, etc.)
 - [ ] End-to-end latency measured (not just request latency)
+
+> **See also:** k6 scripting (all examples above) in `../tools/k6.md`. Gatling gRPC/WebSocket in `../tools/gatling.md`. JMeter JMS/plugins in `../tools/jmeter.md`. Workload design for streaming protocols in `workload-design.md`.

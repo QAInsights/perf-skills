@@ -57,5 +57,59 @@ curl -X POST "https://neoload-api.tricentis.com/v3/tests/{testId}/start" \
 - Integrate with **Dynatrace/AppDynamics** via built-in APM connectors.
 - Use **as-code YAML definitions** (NeoLoad as Code) for version-controlled test configs.
 
+---
+
+## NeoLoad as Code (YAML)
+
+Version-control your test definitions instead of relying on the GUI `.nlp` file:
+
+```yaml
+# neoload-project.yml
+name: Checkout-Load-Test
+ populations:
+  - name: Checkout_Users
+    user_paths:
+      - name: Checkout_Flow
+        distribution: 70%
+      - name: Browse_Flow
+        distribution: 30%
+
+scenarios:
+  - name: Regression_Load
+    populations:
+      - name: Checkout_Users
+        load_policy:
+          steps:
+            - type: ramp
+              from: 0
+              to: 200
+              duration: 120s
+            - type: constant
+              value: 200
+              duration: 600s
+            - type: ramp
+              from: 200
+              to: 0
+              duration: 60s
+
+sla_profiles:
+  - name: Checkout_SLA
+    thresholds:
+      - per_transaction: Checkout
+        avg_response_time:
+          warn: 500ms
+          fail: 1000ms
+        error_rate:
+          warn: 1%
+          fail: 5%
+```
+
+```bash
+# Validate and run from CLI
+neoload-cli validate neoload-project.yml
+neoload-cli run --scenario Regression_Load
+```
+
 > For anti-patterns, assertions, think time, and parameterization principles, see **Key Principles** in `SKILL.md`.
 > For CI/CD integration details, see `../topics/test-execution.md`.
+> For SLO threshold design, see `../topics/slo-capacity.md`.

@@ -212,3 +212,5 @@ If something breaks during a test:
 4. **Roll back if needed** - restore previous version, restart services.
 5. **Preserve evidence** - don't restart services without capturing logs and heap dumps.
 6. **Post-mortem** - document what broke, at what load, what the root cause was.
+
+> **See also:** CI/CD execution patterns in `test-execution.md`. Monitoring during production tests in `observability.md`. SLO and error budget framing in `slo-capacity.md`.

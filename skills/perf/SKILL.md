@@ -93,12 +93,12 @@ Use this to recommend the right tool when the user hasn't decided yet.
 
 | Criteria             | JMeter              | k6                    | Gatling              | Locust         | Artillery        | NeoLoad          | LoadRunner              | OctoPerf              |
 |----------------------|---------------------|-----------------------|----------------------|----------------|------------------|-------------------------|-----------------------|
-| **Language**         | GUI/XML + Groovy    | JavaScript/TypeScript | Scala/Java           | Python         | GUI + NeoLoad DSL| VuGen C-like            | Web UI (JMeter-based) |
-| **Open source**      | ✅                  | ✅                    | ✅                   | ✅             | ❌               | ❌                      | ❌ (SaaS)             |
-| **Protocol support** | HTTP, JDBC, JMS, MQTT, FTP, gRPC | HTTP, gRPC, WS | HTTP, JMS, gRPC | HTTP, gRPC | HTTP, gRPC, WS, SAP | HTTP, Citrix, SAP, Flex | HTTP (JMeter-backed) |
-| **Developer-friendly** | Medium            | High                  | High                 | High           | Low              | Low                     | Medium                |
-| **Enterprise support** | Community + BlazeMeter | Grafana Cloud    | Gatling Enterprise   | Limited        | Artillery Cloud | ✅               | ✅                      | ✅                    |
-| **CI/CD integration** | Good (Maven/Gradle) | Excellent            | Excellent            | Good           | Good             | Moderate                | Good                  |
+| **Language**         | GUI/XML + Groovy    | JavaScript/TypeScript | Scala/Java           | Python         | YAML / JS / TS   | GUI + NeoLoad DSL       | VuGen C-like          | Web UI (JMeter-based) |
+| **Open source**      | ✅                  | ✅                    | ✅                   | ✅             | ✅ (core)        | ❌                      | ❌                    | ❌ (SaaS)             |
+| **Protocol support** | HTTP, JDBC, JMS, MQTT, FTP, gRPC | HTTP, gRPC, WS | HTTP, JMS, gRPC | HTTP, gRPC | HTTP, gRPC, WS, Socket.IO | HTTP, SAP, Citrix, Flex | HTTP, SAP, Citrix, many | HTTP (JMeter-backed) |
+| **Developer-friendly** | Medium            | High                  | High                 | High           | Medium           | Low                     | Low                   | Medium                |
+| **Enterprise support** | Community + BlazeMeter | Grafana Cloud    | Gatling Enterprise   | Limited        | Artillery Cloud  | ✅                      | ✅                    | ✅                    |
+| **CI/CD integration** | Good (Maven/Gradle) | Excellent            | Excellent            | Good           | Good             | Moderate                | Good                  | Good                  |
 | **Cloud execution**  | BlazeMeter, OctoPerf | Grafana Cloud        | Gatling Enterprise   | Self-managed   | Artillery Cloud (Lambda/Fargate) | NeoLoad Cloud    | AWS/on-prem             | OctoPerf Cloud        |
 | **Best for**         | Legacy systems, JDBC, protocols | Modern APIs, TypeScript devs | High-throughput HTTP | Python teams, flexible | Node teams, YAML tests, cloud scale | SAP/Citrix enterprise | Mainframe, legacy enterprise | JMeter teams needing cloud UI |
 
@@ -223,13 +223,13 @@ the specific mapping rather than a generic explanation.
 | User entrypoint  | Thread Group            | `default()` function    | `scenario()`             | task methods             | `flow` in scenario       | `Action()`          |
 | Concurrency ctrl | Thread Group settings   | executor                | `inject()`               | `spawn_rate`             | `maxVusers` / `arrivalRate` | Vuser Group         |
 | Think time       | Constant/Uniform Timer  | `sleep()`               | `pause()`                | `time.sleep()`           | `think`                  | `lr_think_time()`   |
-| Inline assertion | Response Assertion      | `check()`               | `.check()`               | `catch_response`         | `lr_eval_string()`  |
+| Inline assertion | Response Assertion      | `check()`               | `.check()`               | `catch_response`         | `afterResponse` hooks    | `lr_eval_string()`  |
 | SLA enforcement  | Duration Assertion      | `thresholds`            | Assertions (Enterprise)  | custom + exit code       | `ensure` plugin          | SLA definition      |
 | Correlation      | Regex / CSS Extractor   | `res.json()` / regex    | `.check()` + `saveAs()`  | `response.text` + regex  | `capture` (json/xpath/regexp/header) | `web_reg_save_param`|
 | Data feed        | CSV Data Set Config     | `SharedArray`           | `feeder`                 | CSV reader               | `payload` / `variables`  | `lr_paramarr()`     |
 | Grouping         | Transaction Controller  | `group()`               | `group()`                | task sets                | `name` on scenario       | Transaction         |
-| Distributed      | Controller + Agents     | k6 cloud / k6 operator  | Gatling Enterprise       | master + workers         | Load Generator      |
-| Results output   | .jtl (CSV/XML)          | JSON / InfluxDB / cloud | simulation.log           | CSV / Locust web UI      | .lrr file           |
+| Distributed      | Controller + Agents     | k6 cloud / k6 operator  | Gatling Enterprise       | master + workers         | Lambda / Fargate workers | Load Generator      |
+| Results output   | .jtl (CSV/XML)          | JSON / InfluxDB / cloud | simulation.log           | CSV / Locust web UI      | JSON / HTML report       | .lrr file           |
 
 ---
 
@@ -344,4 +344,4 @@ prescribing a solution:
 - Where will tests **run from** (local, CI, cloud)?
 - What **environment** is being tested (dev, staging, prod)?
 - Is there an **APM tool** in place (Datadog, Dynatrace, Grafana,
-  New Relic)??)??
+  New Relic)?

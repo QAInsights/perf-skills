@@ -199,3 +199,5 @@ Synthetic monitors catch regressions that slip through staging without requiring
 - [ ] Log aggregation active and searchable
 - [ ] Baseline metrics screenshot taken before test starts (for comparison)
 - [ ] Metrics retention configured to keep results for trend analysis
+
+> **See also:** k6 metric primitives in `../tools/k6.md`. JMeter Backend Listener in `../tools/jmeter.md`. Interpreting the metrics in `results-analysis.md`. SLO thresholds in `slo-capacity.md`.

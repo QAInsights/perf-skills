@@ -242,3 +242,5 @@ Structure your report:
    - Error log samples
    - Environment configuration
 ```
+
+> **See also:** Metric collection and dashboards in `observability.md`. SLO interpretation and error budgets in `slo-capacity.md`. LLM-specific metrics (TTFT, TPOT, goodput) in `llm-inference.md`.

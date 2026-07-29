@@ -109,15 +109,14 @@ python -m scripts.run_loop \
 
 | Category | Evals | What it tests |
 |---|---|---|
-| `jmeter` | 1, 9 | JMX generation, correlation |
-| `k6` | 2, 7, 8 | Diagnosis, CI/CD, gRPC scripting |
-| `tool-selection` | 3 | Recommending the right tool |
-| `gatling` | 4 | Scala simulation generation |
-| `results-analysis` | 5 | Latency distribution interpretation |
-| `workload-design` | 6 | Think time, pacing, soak strategy |
-| `cicd` | 7 | GitHub Actions + thresholds |
-| `protocol-testing` | 8 | gRPC with xk6-grpc |
-| `locust` | 10 | Python-based load test generation |
+| `k6` | 1, 5, 7 | Diagnosis, executor choice, thresholds |
+| `tool-selection` | 2 | Recommending the right tool (Kafka) |
+| `jmeter` | 3 | OOM diagnosis, listener memory leak |
+| `migration` | 4 | LoadRunner-to-k6 concept mapping |
+| `locust` | 6 | catch_response silent failure |
+| `artillery` | 8, 9 | ensure CI gating, arrivalRate vs concurrency |
+| `llm-inference` | 10 | TTFT/TPOT metrics, benchmarking tools |
+| `slo-capacity` | 11 | Error budgets, CI gating with burn rate |
 
 ---
 

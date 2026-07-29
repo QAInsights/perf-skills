@@ -312,3 +312,5 @@ Define performance budgets in CI to prevent regressions:
 - [ ] Concurrency limits and provisioned concurrency validated
 - [ ] Frontend Core Web Vitals measured under backend load
 - [ ] Performance budgets defined and enforced in CI
+
+> **See also:** CI/CD pipeline patterns in `test-execution.md`. Kubernetes and mesh monitoring in `observability.md`. SLO headroom for autoscaling decisions in `slo-capacity.md`.

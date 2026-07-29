@@ -30,9 +30,10 @@
 
 | Category | Supported Technologies |
 | :--- | :--- |
-| **Open Source** | Apache JMeter, k6 (Grafana Labs), Gatling, Locust |
+| **Open Source** | Apache JMeter, k6 (Grafana Labs), Gatling, Locust, Artillery |
 | **Commercial/SaaS** | NeoLoad (Tricentis), LoadRunner (OpenText), OctoPerf |
 | **Protocols** | HTTP/REST, gRPC, GraphQL, WebSocket, SSE, JDBC, SOAP, Kafka/MQ, Citrix, SAP |
+| **AI/ML** | LLM inference benchmarking (vLLM, TRT-LLM, SGLang), SLO/capacity planning |
 
 ---
 
@@ -60,6 +61,7 @@ A major highlight of this library is the **Dynamic Value Correlation** engine ([
 | AI Assistant | Integration Method |
 | :--- | :--- |
 | **Claude Code** | Native Plugin or `CLAUDE.md` context referencing |
+| **Qwen Code** | Native Skill (`/perf`) or `QWEN.md` context referencing |
 | **Windsurf (Cascade)** | Local Skill configuration |
 | **Cursor** | Custom rules `.cursor/rules/` or index via `@Docs` |
 | **Cline / Roo Code** | Workspace instructions / custom rules |
@@ -88,6 +90,24 @@ To update to the latest version:
 /plugin uninstall perf
 /plugin install perf@qainsights
 /reload-plugins
+```
+
+---
+
+### Qwen Code Skill
+
+Install as a user-level skill so `/perf` is available in every project:
+```bash
+qwen skills add QAInsights/perf-skills
+```
+
+Or for a single project, copy the skill directory and reference it in `QWEN.md`:
+```bash
+cp -r perf-skills/skills/perf ./perf
+```
+```markdown
+<!-- QWEN.md -->
+For performance testing questions, read `perf/SKILL.md` for routing, then load the relevant reference files from `perf/references/`.
 ```
 
 ---
@@ -191,7 +211,7 @@ perf-skills/
             │   ├── k6.md                 # k6 JS/TS scripting, thresholds, VU options
             │   ├── gatling.md            # Gatling Scala/Java DSL & feeders
             │   ├── locust.md             # Locust Python scripting & FastHttpUser
-│   ├── artillery.md          # Artillery YAML/JS/TS scripting, phases, ensure SLOs, cloud
+            │   ├── artillery.md          # Artillery YAML/JS/TS scripting, phases, ensure SLOs, cloud
             │   ├── neoload.md            # NeoLoad GUI configs & API execution
             │   ├── loadrunner.md         # LoadRunner VuGen C scripting
             │   └── octoperf.md           # OctoPerf JMeter-based cloud execution

@@ -87,6 +87,54 @@ Purpose-built LLM benchmarkers surface token metrics natively. Prefer them over 
 
 ---
 
+## Quick Start Commands
+
+```bash
+# vLLM bench serve - max throughput probe with ShareGPT data
+python -m vllm.entrypoints.openai.api_server --model meta-llama/Llama-3-8B &
+python -m vllm bench serve \
+  --model meta-llama/Llama-3-8B \
+  --endpoint http://localhost:8000/v1/completions \
+  --dataset-name sharegpt \
+  --request-rate inf \
+  --max-concurrency 256 \
+  --num-prompts 500
+
+# vLLM bench serve - realistic arrival pattern
+python -m vllm bench serve \
+  --model meta-llama/Llama-3-8B \
+  --endpoint http://localhost:8000/v1/completions \
+  --dataset-name sharegpt \
+  --request-rate 10 \
+  --burstiness 1.0 \
+  --num-prompts 200
+
+# GuideLLM - production SLA study
+pip install guidedllm
+guidedllm evaluate \
+  --model meta-llama/Llama-3-8B \
+  --base-url http://localhost:8000/v1 \
+  --data emulated --rate 10 --duration 120
+
+# NVIDIA GenAI-Perf - multi-backend benchmark
+genai-perf profile \
+  --model meta-llama/Llama-3-8B \
+  --endpoint-type chat \
+  --url localhost:8000 \
+  --concurrency 64 \
+  --request-count 200
+
+# llmperf - quick latency/throughput check
+python token_benchmark_ray.py \
+  --model meta-llama/Llama-3-8B \
+  --mean-input-tokens 512 \
+  --mean-output-tokens 128 \
+  --num-concurrent-requests 32 \
+  --results-dir ./results
+```
+
+---
+
 ## Test Design & Methodology
 
 1. **Start from real traffic shapes.** Use ShareGPT or captured production traces for prompt/output length distributions. Synthetic `random` datasets are fine for stress but unrealistic for sizing.

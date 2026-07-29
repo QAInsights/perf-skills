@@ -212,3 +212,5 @@ WHERE NOT bl.granted;
 - [ ] Replication lag monitoring active (if using read replicas)
 - [ ] Connection pool metrics exposed and dashboarded
 - [ ] Cleanup script ready for test data removal post-test
+
+> **See also:** JDBC sampler setup in `../tools/jmeter.md`. Monitoring and dashboards in `observability.md`. Interpreting saturation and bottleneck signals in `results-analysis.md`.

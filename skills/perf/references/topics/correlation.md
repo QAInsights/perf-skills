@@ -404,3 +404,7 @@ If you need help configuring correlation, copy and paste the following prompt te
 3. Write the exact extraction syntax for the target tool.
 4. Show the exact injection syntax (including variable syntax, e.g., `${varName}`, `#{varName}`, `{varName}`).
 5. Explain how to debug and verify that the correlation succeeded.
+
+---
+
+> **See also:** Tool-specific extractor syntax in `../tools/jmeter.md`, `../tools/k6.md`, `../tools/gatling.md`, `../tools/locust.md`, `../tools/loadrunner.md`, `../tools/artillery.md`. Script-level correlation patterns in `script-generation.md`.

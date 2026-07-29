@@ -144,6 +144,86 @@
           "text": "Notes that values are baselines and should be adjusted to actual SLA requirements"
         }
       ]
+    },
+    {
+      "id": 8,
+      "prompt": "My Artillery test reports great metrics but my CI pipeline always passes even when p95 latency is 5 seconds. How do I make the test fail in CI?",
+      "expected_output": "Identifies missing ensure block as the cause. Without ensure, Artillery always exits 0. Provides an ensure.thresholds example with p95 and error rate conditions.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "ensure-block-cause",
+          "text": "Identifies that without an ensure block, Artillery always exits 0 regardless of metrics"
+        },
+        {
+          "id": "ensure-example",
+          "text": "Provides a concrete ensure.thresholds or ensure.conditions YAML example"
+        },
+        {
+          "id": "exit-code",
+          "text": "Explains that ensure causes a non-zero exit code when thresholds are breached, enabling CI gating"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "I set arrivalRate to 100 in Artillery expecting 100 concurrent users, but my backend is getting overwhelmed with way more than 100 simultaneous requests. What's happening?",
+      "expected_output": "Explains that arrivalRate is new users per second (open model), not concurrency. On a slow backend, VUs pile up unbounded. Recommends maxVusers to cap concurrency or arrivalCount for a fixed total.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "open-model-explanation",
+          "text": "Explains that arrivalRate means new users per second (open model), not concurrent users"
+        },
+        {
+          "id": "pileup-risk",
+          "text": "Explains that on a slow backend, pending VUs accumulate unboundedly"
+        },
+        {
+          "id": "maxvusers-fix",
+          "text": "Recommends maxVusers to cap real concurrency, or arrivalCount for a fixed total number of users"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "We're benchmarking our vLLM endpoint for a chat application. What metrics should we measure and what tools should we use?",
+      "expected_output": "Recommends TTFT, TPOT/ITL, tokens per second, and goodput as key metrics. Suggests vLLM bench, GenAI-Perf, GuideLLM, or llmperf as benchmarking tools. Distinguishes streaming vs non-streaming measurement.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "ttft-tpot-metrics",
+          "text": "Names TTFT (time to first token) and TPOT or ITL (inter-token latency) as key streaming metrics"
+        },
+        {
+          "id": "benchmarking-tools",
+          "text": "Recommends at least one specific LLM benchmarking tool such as vLLM bench, GenAI-Perf, GuideLLM, or llmperf"
+        },
+        {
+          "id": "goodput-or-throughput",
+          "text": "Mentions goodput or tokens per second as a throughput metric distinct from raw request latency"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "How do I set up SLO-based CI gating for my k6 load tests? I want the build to fail if we burn more than 2% of our error budget.",
+      "expected_output": "Explains error budget concept (100% - SLO target). Shows how to translate an error budget into k6 thresholds. Recommends tracking burn rate over the test window.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "error-budget-concept",
+          "text": "Explains error budget as 100% minus the SLO target (e.g., 99.9% SLO = 0.1% budget)"
+        },
+        {
+          "id": "k6-threshold-mapping",
+          "text": "Shows how to express the error budget as concrete k6 thresholds"
+        },
+        {
+          "id": "burn-rate",
+          "text": "Mentions burn rate or multi-window alerting as a way to avoid false positives from short test runs"
+        }
+      ]
     }
   ]
 }
