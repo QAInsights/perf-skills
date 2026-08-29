@@ -103,7 +103,7 @@ https://perf.jmeter.ai/tools.json per `references/topics/tool-selection.md`.
 Use this to recommend the right tool when the user hasn't decided yet.
 
 | Criteria             | JMeter              | k6                    | Gatling              | Locust         | Artillery        | NeoLoad          | LoadRunner              | OctoPerf              |
-|----------------------|---------------------|-----------------------|----------------------|----------------|------------------|-------------------------|-----------------------|
+|----------------------|---------------------|-----------------------|----------------------|----------------|------------------|-------------------------|-------------------------|-----------------------|
 | **Language**         | GUI/XML + Groovy    | JavaScript/TypeScript | Scala/Java           | Python         | YAML / JS / TS   | GUI + NeoLoad DSL       | VuGen C-like          | Web UI (JMeter-based) |
 | **Open source**      | ✅                  | ✅                    | ✅                   | ✅             | ✅ (core)        | ❌                      | ❌                    | ❌ (SaaS)             |
 | **Protocol support** | HTTP, JDBC, JMS, MQTT, FTP, gRPC | HTTP, gRPC, WS | HTTP, JMS, gRPC | HTTP, gRPC | HTTP, gRPC, WS, Socket.IO | HTTP, SAP, Citrix, Flex | HTTP, SAP, Citrix, many | HTTP (JMeter-backed) |
@@ -222,6 +222,8 @@ ask about them.
   for full download timing (`http.total.*`) when that matters.
 
 ---
+
+## Concept Mapping Across Tools
 
 Use this when users are migrating between tools or asking how a
 concept from one tool maps to another. Claude should always provide
