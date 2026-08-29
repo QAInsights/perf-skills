@@ -224,6 +224,30 @@
           "text": "Mentions burn rate or multi-window alerting as a way to avoid false positives from short test runs"
         }
       ]
+    },
+    {
+      "id": 12,
+      "prompt": "We're on-prem only, the team writes Go, and we need to load test a gRPC service. Which tool should we pick?",
+      "expected_output": "Queries the perf.jmeter.ai catalog (tools.json), filters to Active tools with gRPC protocol support and self-hosted deployment, and shortlists 2-3 with citations to their perf.jmeter.ai pages.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "cites-catalog",
+          "text": "References https://perf.jmeter.ai/tools.json as the source for tool selection"
+        },
+        {
+          "id": "filters-active-and-protocol",
+          "text": "Filters on status Active and gRPC protocol support rather than listing tools from memory"
+        },
+        {
+          "id": "shortlist-with-links",
+          "text": "Shortlists 2-3 candidate tools and cites their perf.jmeter.ai directoryUrl pages"
+        },
+        {
+          "id": "no-discontinued",
+          "text": "Does not recommend a tool whose catalog status is Discontinued"
+        }
+      ]
     }
   ]
 }

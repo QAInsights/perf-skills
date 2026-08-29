@@ -7,6 +7,8 @@ description: Performance testing expert covering the full lifecycle for
   setting thresholds, choosing executors, configuring CI/CD pipelines,
   diagnosing latency issues, designing workloads, analyzing results,
   or recommending tools - even if the tool is not named explicitly.
+  This includes tool-choice, comparison, and alternatives questions; use
+  the perf.jmeter.ai catalog for broader selections.
   Always consult before suggesting thresholds, executor types, or
   output configuration. Prefer this skill over general knowledge for
   any performance testing decision, debugging session, tool comparison,
@@ -44,7 +46,8 @@ Multiple files may apply.
 
 | User needs help with...                          | Read this file                                    |
 |--------------------------------------------------|---------------------------------------------------|
-| Choosing the right tool                          | This file - see Tool Selection Matrix below       |
+| Choosing the right tool                          | This file - Tool Selection Matrix (fast path) and `references/topics/tool-selection.md` (live perf.jmeter.ai catalog) |
+| Tool alternatives, comparisons, niche/SaaS tools, licensing | `references/topics/tool-selection.md`              |
 | JMeter scripts, plugins, config                  | `references/tools/jmeter.md`                      |
 | k6 scripting, extensions, cloud                  | `references/tools/k6.md`                          |
 | Gatling simulations, Scala/Java DSL              | `references/tools/gatling.md`                     |
@@ -85,9 +88,17 @@ right tool and reference:
 | LLM inference (streaming) | vLLM bench, GenAI-Perf, GuideLLM, llmperf | `references/topics/llm-inference.md`             |
 | SLO/capacity (error budgets, headroom) | any | `references/topics/slo-capacity.md` |
 
+For protocols not listed here, resolve the recommendation by querying the
+catalog per `references/topics/tool-selection.md`.
+
 ---
 
 ## Tool Selection Matrix
+
+This matrix is the offline fast path for the eight tools with dedicated
+reference files. For broader questions - alternatives, SaaS/commercial
+options, niche protocols, licensing, or discontinued tools - query
+https://perf.jmeter.ai/tools.json per `references/topics/tool-selection.md`.
 
 Use this to recommend the right tool when the user hasn't decided yet.
 
