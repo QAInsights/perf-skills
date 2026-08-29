@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Expert AI skill for performance testing - covers the full lifecycle using JMeter, k6, Gatling, Locust, Artillery, NeoLoad, LoadRunner, OctoPerf, plus LLM inference benchmarking and SLO/capacity planning.",
-    "version": "4.0.0"
+    "version": "4.1.0"
   },
   "plugins": [
     {
       "name": "perf",
       "source": "./",
-      "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 8 tools, 13 topic areas, LLM inference benchmarking, and SLO/capacity planning.",
-      "version": "4.0.0",
+      "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 8 tools, 14 topic areas, LLM inference benchmarking, and SLO/capacity planning.",
+      "version": "4.1.0",
       "author": {
         "name": "NaveenKumar Namachivayam",
         "email": "contact@qainsights.com"

@@ -1,6 +1,6 @@
 {
   "name": "perf",
   "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests using JMeter, k6, Gatling, Locust, Artillery, NeoLoad, LoadRunner, OctoPerf, plus LLM inference benchmarking and SLO/capacity planning.",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "skills": "./skills/"
 }

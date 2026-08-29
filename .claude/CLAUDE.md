@@ -110,7 +110,7 @@ python -m scripts.run_loop \
 | Category | Evals | What it tests |
 |---|---|---|
 | `k6` | 1, 5, 7 | Diagnosis, executor choice, thresholds |
-| `tool-selection` | 2 | Recommending the right tool (Kafka) |
+| `tool-selection` | 2, 12 | Recommending the right tool (Kafka and catalog-driven selection) |
 | `jmeter` | 3 | OOM diagnosis, listener memory leak |
 | `migration` | 4 | LoadRunner-to-k6 concept mapping |
 | `locust` | 6 | catch_response silent failure |

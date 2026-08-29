@@ -194,6 +194,8 @@ The skill will auto-trigger when you ask about performance testing, load testing
 ## 📂 File Structure & Routing
 
 Here is how the knowledge base is organized. The entry point [SKILL.md](skills/perf/SKILL.md) routes queries to specific reference guides to keep prompt sizes minimal.
+The topic references also include a tool-selection guide backed by the
+perf.jmeter.ai catalog for broader recommendations.
 
 ```text
 perf-skills/
@@ -228,6 +230,7 @@ perf-skills/
                 ├── database-testing.md   # JDBC, pools, deadlocks, slow queries
                 ├── modern-architectures.md # K8s scaling, HPA, Frontend CWV
                 ├── llm-inference.md     # LLM serving: TTFT, TPOT/ITL, TPS, goodput, tools
+                ├── tool-selection.md   # Tool alternatives, comparisons, and catalog lookup
                 └── slo-capacity.md      # SLOs, error budgets, headroom, CI gating
 ```
 
@@ -251,12 +254,13 @@ To avoid hitting context window limits, the skill operates on a **selective load
 | *"Our p95 latency spikes during database writes, how do we fix?"* | `database-testing.md` + `results-analysis.md` |
 | *"What TTFT/throughput can our vLLM endpoint sustain at 200 concurrent users?"* | `llm-inference.md` |
 | *"How many replicas do we need, and what SLO headroom should we keep?"* | `slo-capacity.md` |
+| *"Which load testing tool should we use for a gRPC service on-prem?"* | `tool-selection.md` |
 
 ---
 
 ## ✅ Eval-Verified Quality
 
-This skill is tested with 11 eval cases across 8 categories (k6, JMeter, Artillery, Locust, tool selection, migration, LLM inference, SLO/capacity). Each eval verifies that the skill context produces correct, concrete answers with code examples - not just generic advice.
+This skill is tested with 12 eval cases across 8 categories (k6, JMeter, Artillery, Locust, tool selection, migration, LLM inference, SLO/capacity). Each eval verifies that the skill context produces correct, concrete answers with code examples - not just generic advice.
 
 | Category | Evals | What it verifies |
 | :--- | :--- | :--- |
@@ -264,7 +268,7 @@ This skill is tested with 11 eval cases across 8 categories (k6, JMeter, Artille
 | JMeter | 3 | OOM diagnosis, listener memory leak |
 | Artillery | 8, 9 | `ensure` CI gating, `arrivalRate` vs concurrency |
 | Locust | 6 | `catch_response` silent failure |
-| Tool selection | 2 | Kafka tool recommendation |
+| Tool selection | 2, 12 | Kafka and catalog-driven tool recommendation |
 | Migration | 4 | LoadRunner-to-k6 concept mapping |
 | LLM inference | 10 | TTFT/TPOT metrics, benchmarking tools |
 | SLO/capacity | 11 | Error budgets, burn rate CI gating |
