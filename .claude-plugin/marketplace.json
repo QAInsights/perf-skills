@@ -12,7 +12,7 @@
     {
       "name": "perf",
       "source": "./",
-      "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 8 tools, 13 topic areas, LLM inference benchmarking, and SLO/capacity planning.",
+      "description": "Expert guidance for performance testing: planning, scripting, executing, and analyzing load/stress/soak/spike tests across 8 tools, 14 topic areas, LLM inference benchmarking, and SLO/capacity planning.",
       "version": "4.1.0",
       "author": {
         "name": "NaveenKumar Namachivayam",

@@ -22,8 +22,11 @@ here.
 | `https://perf.jmeter.ai/vs/{a}-vs-{b}` | Human-readable head-to-head page to cite (e.g. `/vs/apache-jmeter-vs-grafana-k6`). |
 | `https://perf.jmeter.ai/alternatives/{slug}` | Alternatives hub for one tool. |
 
-`tools.json` is roughly 75 KB. Never dump it into the answer - filter
-it, then reason over the handful of matching rows.
+The catalog changes often - tools are added, retired, and re-tagged.
+Treat it as the live source of truth: never answer from a remembered
+snapshot of it, and never quote counts or value lists from this file.
+Fetch, then filter, then reason over the handful of matching rows -
+never dump the whole dataset into the answer.
 
 ---
 
@@ -31,65 +34,96 @@ it, then reason over the handful of matching rows.
 
 ```json
 {
-  "generatedAt": "2026-08-29T07:27:28.537Z",
-  "datasetLastVerified": "2026-08-12",
-  "count": 77,
+  "generatedAt": "<ISO timestamp>",
+  "datasetLastVerified": "<YYYY-MM-DD>",
+  "count": "<number of tools>",
   "tools": [ { /* tool object */ } ]
 }
 ```
 
-Each tool object:
+Each tool object carries these fields. The field *names* are stable;
+the *values* are not - discover them at query time (see Discovering the
+facet vocabulary below) rather than assuming the ones you have seen
+before still exist.
 
 | Field | Type | Notes |
 |---|---|---|
 | `slug` | string | Stable id, used in `/tools/{slug}.json` and `/vs/*` URLs. |
 | `name`, `vendor`, `description` | string | |
 | `url`, `repoUrl`, `directoryUrl` | string | `directoryUrl` is the perf.jmeter.ai page - cite this. |
-| `category` | enum | `Load Testing`, `Cloud Load Testing`, `Enterprise Suite`, `Protocol/API Load`, `Browser/RUM`, `Micro-benchmark CLI`, `Results Analysis`, `AI/LLM Inference` |
-| `license` | enum | `Open Source`, `Commercial`, `Freemium` |
+| `category` | string | Coarse grouping (load testing, cloud/SaaS, enterprise suite, protocol/API, browser/RUM, micro-benchmark CLI, LLM inference, ...). |
+| `license` | string | Open source / commercial / freemium. |
 | `pricingModel` | string | Free-text (e.g. "Free; Apache License 2.0."). |
-| `deployment` | enum | `Self-hosted`, `Cloud`, `Hybrid` |
-| `scriptingLanguages` | string[] | `Java`, `Groovy`, `JavaScript`, `TypeScript`, `Python`, `Go`, `C`, `C#`, `Scala`, `Kotlin`, `Rust`, `Lua`, `YAML`, `None`, ... |
-| `protocols` | string[] | `HTTP`, `HTTPS`, `WebSocket`, `SSE`, `gRPC`, `JDBC`, `JMS`, `MQTT`, `SOAP`, `SAP`, `Citrix`, `SIP`, `LDAP`, `TCP`, ... |
-| `osSupport` | string[] | `Windows`, `macOS`, `Linux`, `Browser` |
+| `deployment` | string | Self-hosted / cloud / hybrid. |
+| `scriptingLanguages` | string[] | Languages the tool is scripted in. |
+| `protocols` | string[] | Protocol labels the catalog assigns. |
+| `osSupport` | string[] | Operating systems, plus `Browser` for browser-based tools. |
 | `firstReleased` | number | Year. |
-| `status` | enum | `Active` or `Discontinued` - **always filter out `Discontinued`** unless the user is asking about a legacy tool they already run. |
+| `status` | string | Active vs discontinued - **always filter to the active value** unless the user is asking about a legacy tool they already run. |
 | `successor` | string \| null | Replacement when `status` is `Discontinued` - a tool name, `"No verified successor"`, or `null`. Recommend the named successor instead. |
 | `generalPick` | boolean | Curator's broadly-recommended shortlist. |
 | `personalPick` | boolean | Curator's own preference - weaker signal than `generalPick`. |
 | `tags` | string[] | e.g. `saas`, `ci-cd`, `cli`, `distributed`, `enterprise`, `legacy`, `code-first`, `llm`. |
 
-Field values are the catalog's own vocabulary and the facets are
-coarse: message-queue support shows up as `JMS`, and plugin/extension
-capabilities (xk6 extensions, JMeter plugins) are not modelled at all.
-A filter returning nothing means the capability isn't a catalog facet,
-not that no tool exists - widen the filter, sweep the free text, and
-fall back to this skill's own tool files.
+Facet values are the catalog's own vocabulary, matched exactly and
+case-sensitively, and the facets are coarse - some capabilities
+(plugins and extensions such as xk6 extensions or JMeter plugins) are
+not modelled at all. A filter returning nothing means the value or
+capability isn't a catalog facet, not that no tool exists: enumerate
+the real values, widen the filter, sweep the free text, then fall back
+to this skill's own tool files.
 
 ---
 
 ## Query recipes
 
-Fetch once, then filter locally:
+Fetch fresh at the start of every tool-selection conversation, then
+filter locally:
 
 ```bash
 curl -s https://perf.jmeter.ai/tools.json -o /tmp/tools.json
+jq -r '"\(.count) tools, verified \(.datasetLastVerified), generated \(.generatedAt)"' /tmp/tools.json
 ```
 
-```bash
-# Active open-source tools that speak gRPC
-jq -r '.tools[] | select(.status=="Active" and .license=="Open Source")
-       | select(.protocols | index("gRPC")) | "\(.name) - \(.directoryUrl)"' /tmp/tools.json
+### Discovering the facet vocabulary
 
-# Python-scriptable, self-hosted
-jq -r '.tools[] | select(.status=="Active" and .deployment=="Self-hosted")
-       | select(.scriptingLanguages | index("Python")) | .name' /tmp/tools.json
+Run this before filtering so the predicates use values that exist in
+*today's* dataset:
+
+```bash
+# Every distinct value of the single-valued facets
+for f in category license deployment status; do
+  echo "$f: $(jq -r --arg f "$f" '[.tools[][$f]] | unique | join(", ")' /tmp/tools.json)"
+done
+
+# Every distinct value of the array facets, with counts
+for f in protocols scriptingLanguages osSupport tags; do
+  echo "== $f"
+  jq -r --arg f "$f" '[.tools[][$f][]] | group_by(.) | map("\(.[0]) (\(length))") | join(", ")' /tmp/tools.json
+done
+```
+
+### Filtering
+
+Substitute the facet values you just enumerated - the ones below are
+placeholders showing the shape of the query, not a fixed vocabulary.
+
+```bash
+# Active tools with a given protocol and license
+jq -r --arg proto gRPC --arg lic "Open Source" \
+  '.tools[] | select(.status=="Active" and .license==$lic)
+   | select(.protocols | index($proto)) | "\(.name) - \(.directoryUrl)"' /tmp/tools.json
+
+# Team language + deployment model
+jq -r --arg lang Python --arg dep Self-hosted \
+  '.tools[] | select(.status=="Active" and .deployment==$dep)
+   | select(.scriptingLanguages | index($lang)) | .name' /tmp/tools.json
 
 # The curated shortlist
 jq -r '.tools[] | select(.generalPick) | "\(.name) (\(.category)) - \(.directoryUrl)"' /tmp/tools.json
 
-# What replaced a discontinued tool
-jq -r '.tools[] | select(.status=="Discontinued") | "\(.slug) -> \(.successor)"' /tmp/tools.json
+# Retired tools and what replaced them
+jq -r '.tools[] | select(.status!="Active") | "\(.slug) -> \(.successor)"' /tmp/tools.json
 
 # Free-text sweep when the facet vocabulary doesn't cover the need
 jq -r --arg q kafka '.tools[]
@@ -117,8 +151,9 @@ the Tool Selection Matrix in `SKILL.md`.
    model, pricing - not from vibes. State the trade-off of the runner-up.
 5. **Cite `directoryUrl`** for each recommendation, and the
    `/vs/{a}-vs-{b}` page when the user is weighing two tools.
-6. **Report freshness** when the recommendation is contentious: quote
-   `datasetLastVerified`.
+6. **Report freshness** from the fetched payload - quote
+   `datasetLastVerified` (and `generatedAt` when relevant) rather than
+   any date written in this file.
 7. **Hand off to depth.** If the chosen tool has a file in
    `references/tools/`, load it for scripting specifics. If it does
    not, work from `/tools/{slug}.json` plus the relevant topic file and
